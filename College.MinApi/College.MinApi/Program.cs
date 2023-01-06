@@ -13,12 +13,12 @@ static CollegeApiResponseDto<T> GenerateCollegeApiResponse<T>(T? data = default,
     };
 }
 
-static object SendDefaultApiEndpointOutput()
+static CollegeApiResponseDto<string> SendDefaultApiEndpointOutput()
 {
     return GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint");
 }
 
-static object SendDefaultApiEndpointV1Output()
+static CollegeApiResponseDto<string> SendDefaultApiEndpointV1Output()
 {
     return GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint V1");
 }
@@ -35,5 +35,20 @@ app.MapGet("/hw", () =>
 app.MapGet("/api", SendDefaultApiEndpointOutput);
 
 app.MapGet("/api/v1", () => SendDefaultApiEndpointV1Output());
+
+app.MapGet("/api/students", GetAllStudents);
+
+static CollegeApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
+{
+    IList<StudentDto> students = new List<StudentDto>()
+    {
+        new() { Name = "Sri Varu"},
+        new() { Name = "Manpreet Sing"},
+        new() { Name = "Scott Rudy"},
+        new() { Name = "Mohd Azim"}
+    };
+
+    return GenerateCollegeApiResponse<IEnumerable<StudentDto>>(students);
+}
 
 app.Run();
