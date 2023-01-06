@@ -25,9 +25,11 @@ static object SendDefaultApiEndpointV1Output()
 
 var app = builder.Build();
 
-app.MapGet("/", () =>
+app.MapGet("/", () => "Hello Minimal API World !!");
+
+app.MapGet("/hw", () =>
 {
-    return GenerateDefaultOutput("Hello Minimal API !!");
+    return GenerateDefaultOutput("Hello Minimal API World !!");
 });
 
 app.MapGet("/api", SendDefaultApiEndpointOutput);
