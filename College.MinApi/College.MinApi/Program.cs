@@ -1,3 +1,4 @@
+using College.MinApi.Common;
 using College.MinApi.Entities;
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
@@ -27,25 +28,25 @@ app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output())
 #endregion
 
 #region Courses Endpoints
-app.MapGet("/api/courses", async (ICoursesRepository coursesRepository) =>
+app.MapGet(Constants.CoursesEndpoints.Root, async (ICoursesRepository coursesRepository) =>
 {
     var courses = await coursesRepository.GetAllCourses();
 
     return Results.Ok(courses);
 });
 
-app.MapPost("/api/courses", async (CollegeDbContext collegeDbContext, Course course) =>
+app.MapPost(Constants.CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, Course course) =>
 {
     collegeDbContext.Courses.Add(course);
 
     await collegeDbContext.SaveChangesAsync();
 
-    return Results.Created($"/api/courses/{course.Id}", course);
+    return Results.Created($"{Constants.CoursesEndpoints.Root}/{course.Id}", course);
 });
 #endregion
 
 #region Students Endpoints
-app.MapGet("/api/students", StudentsRepository.GetAllStudents);
+app.MapGet(Constants.StudentsEndpoints.Root, StudentsRepository.GetAllStudents);
 #endregion
 
 app.Run();
