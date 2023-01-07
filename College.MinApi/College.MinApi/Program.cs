@@ -26,9 +26,9 @@ app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output())
 #endregion
 
 #region Courses Endpoints
-app.MapGet("/api/courses", (CollegeDbContext collegeDbContext) =>
+app.MapGet("/api/courses", async (CollegeDbContext collegeDbContext) =>
 {
-    var courses = collegeDbContext.Courses.ToList();
+    var courses = await collegeDbContext.Courses.ToListAsync();
 
     return Results.Ok(courses);
 });
