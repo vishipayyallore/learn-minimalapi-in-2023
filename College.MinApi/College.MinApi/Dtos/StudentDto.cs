@@ -5,6 +5,8 @@
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
+        public string? RollNumber { get; set; }
+
         public string? Name { get; set; } = "No Name";
 
         public DateTime DateOfBirth { get; set; } = DateTime.UtcNow.AddYears(-6);
@@ -13,10 +15,10 @@
         {
             return new List<StudentDto>()
             {
-                new() { Name = "Sri Varu"},
-                new() { Name = "Manpreet Sing"},
-                new() { Name = "Scott Rudy"},
-                new() { Name = "Mohd Azim"}
+                new() { RollNumber = "A101", Name = "Sri Varu" },
+                new() { RollNumber = "A102", Name = "Manpreet Singh" },
+                new() { RollNumber = "A103", Name = "Scott Rudy" },
+                new() { RollNumber = "A104", Name = "Mohd Azim" }
             };
         }
 
