@@ -1,9 +1,16 @@
-﻿namespace College.MinApi.Persistance
+﻿using College.MinApi.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace College.MinApi.Persistance
 {
-    
-    public class CollegeDbContext
+
+    public class CollegeDbContext : DbContext
     {
-    
+        public CollegeDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
+        public DbSet<Course> Courses => Set<Course>();
     }
 
 }
