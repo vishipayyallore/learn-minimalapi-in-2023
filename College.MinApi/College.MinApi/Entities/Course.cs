@@ -3,13 +3,21 @@
 
     public class Course
     {
-        public Guid CourseId { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string CourseName { get; set; } = string.Empty;
+        public string? CourseId { get; set; }
 
-        public int CourseDuration { get; set; }
+        public string? Name { get; set; }
+
+        public int Duration { get; set; }
 
         public int CourseType { get; set; }
+
+        public string? Description { get; set; }
+
+        public DateTime? Created { get; set; }
+
+        public DateTime? Updated { get; set; }
     }
 
 }
