@@ -1,5 +1,5 @@
-using College.MinApi.Dtos;
 using College.MinApi.Helpers;
+using College.MinApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +16,6 @@ app.MapGet("/api", DefaultApiResponse.SendDefaultApiEndpointOutput);
 
 app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output());
 
-app.MapGet("/api/students", GetAllStudents);
-
-static ApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
-{
-    IList<StudentDto> students = StudentDto.GetDummyStudents();
-
-    return CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<StudentDto>>(students);
-}
+app.MapGet("/api/students", StudentsRepository.GetAllStudents);
 
 app.Run();
