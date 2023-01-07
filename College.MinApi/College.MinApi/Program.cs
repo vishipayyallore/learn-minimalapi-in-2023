@@ -1,7 +1,14 @@
+using College.MinApi.Extensions;
 using College.MinApi.Helpers;
+using College.MinApi.Persistance;
 using College.MinApi.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region Service collection
+builder.Services.AddApplicationServices();
+#endregion
 
 var app = builder.Build();
 
