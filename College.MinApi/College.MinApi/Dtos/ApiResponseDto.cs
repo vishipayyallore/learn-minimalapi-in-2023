@@ -1,7 +1,7 @@
 ﻿namespace College.MinApi.Dtos
 {
 
-    public class CollegeApiResponseDto<T>
+    public class ApiResponseDto<T>
     {
         public bool Success { get; set; }
 

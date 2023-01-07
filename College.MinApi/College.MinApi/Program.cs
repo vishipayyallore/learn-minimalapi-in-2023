@@ -1,54 +1,56 @@
-using College.MinApi.Dtos;
+using College.MinApi.Entities;
+using College.MinApi.Extensions;
+using College.MinApi.Helpers;
+using College.MinApi.Interfaces;
+using College.MinApi.Persistance;
+using College.MinApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-static CollegeApiResponseDto<T> GenerateCollegeApiResponse<T>(T? data = default, string message = "Success"
-    , bool success = true)
-{
-    return new CollegeApiResponseDto<T>
-    {
-        Success = success,
-        Message = message,
-        Data = data
-    };
-}
-
-static CollegeApiResponseDto<string> SendDefaultApiEndpointOutput()
-{
-    return GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint");
-}
-
-static CollegeApiResponseDto<string> SendDefaultApiEndpointV1Output()
-{
-    return GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint V1");
-}
+#region Service collection
+builder.Services.AddApplicationServices();
+#endregion
 
 var app = builder.Build();
 
+# region Root & Hello World Endpoints
 app.MapGet("/", () => "Hello Minimal API World !!");
 
 app.MapGet("/hw", () =>
 {
-    return GenerateCollegeApiResponse<string>("Hello Minimal API World !!");
+    return CollegeApiResponse.GenerateCollegeApiResponse<string>("Hello Minimal API World !!");
 });
 
-app.MapGet("/api", SendDefaultApiEndpointOutput);
+app.MapGet("/api", DefaultApiResponse.SendDefaultApiEndpointOutput);
 
-app.MapGet("/api/v1", () => SendDefaultApiEndpointV1Output());
+app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output());
+#endregion
 
-app.MapGet("/api/students", GetAllStudents);
-
-static CollegeApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
+#region Courses Endpoints
+app.MapGet("/api/courses", async (ICoursesRepository coursesRepository) =>
 {
-    IList<StudentDto> students = new List<StudentDto>()
-    {
-        new() { Name = "Sri Varu"},
-        new() { Name = "Manpreet Sing"},
-        new() { Name = "Scott Rudy"},
-        new() { Name = "Mohd Azim"}
-    };
+    var courses = await coursesRepository.GetAllCourses();
 
-    return GenerateCollegeApiResponse<IEnumerable<StudentDto>>(students);
-}
+    return Results.Ok(courses);
+});
+
+app.MapPost("/api/courses", async (CollegeDbContext collegeDbContext, Course course) =>
+{
+    collegeDbContext.Courses.Add(course);
+
+    await collegeDbContext.SaveChangesAsync();
+
+    return Results.Created($"/api/courses/{course.Id}", course);
+});
+#endregion
+
+#region Students Endpoints
+app.MapGet("/api/students", StudentsRepository.GetAllStudents);
+#endregion
 
 app.Run();
+
+// Output Types
+// Primitive Types
+// IActionResult
+// ActionResult<T>
