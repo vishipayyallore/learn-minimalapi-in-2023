@@ -1,4 +1,6 @@
-﻿using College.MinApi.Persistance;
+﻿using College.MinApi.Interfaces;
+using College.MinApi.Persistance;
+using College.MinApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace College.MinApi.Extensions
@@ -14,6 +16,9 @@ namespace College.MinApi.Extensions
 
             // services.AddAutoMapper(typeof(CollegeMapper));
             // services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+            services.AddScoped<ICoursesRepository, CoursesRepository>();
+
             return services;
         }
 

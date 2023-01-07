@@ -1,8 +1,7 @@
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
-using College.MinApi.Persistance;
+using College.MinApi.Interfaces;
 using College.MinApi.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,9 +25,9 @@ app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output())
 #endregion
 
 #region Courses Endpoints
-app.MapGet("/api/courses", async (CollegeDbContext collegeDbContext) =>
+app.MapGet("/api/courses", async (ICoursesRepository coursesRepository) =>
 {
-    var courses = await collegeDbContext.Courses.ToListAsync();
+    var courses = await coursesRepository.GetAllCourses();
 
     return Results.Ok(courses);
 });

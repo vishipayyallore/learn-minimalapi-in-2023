@@ -1,9 +1,11 @@
-﻿namespace College.MinApi.Interfaces
+﻿using College.MinApi.Entities;
+
+namespace College.MinApi.Interfaces
 {
 
     public interface ICoursesRepository
     {
-        Task<IResult> GetAllCourses();
+        Task<IEnumerable<Course>> GetAllCourses();
     }
 
 }

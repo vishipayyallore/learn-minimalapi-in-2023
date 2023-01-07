@@ -1,4 +1,5 @@
-﻿using College.MinApi.Interfaces;
+﻿using College.MinApi.Entities;
+using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,12 +15,13 @@ namespace College.MinApi.Repositories
             _collegeDbContext = collegeDbContext ?? throw new ArgumentNullException(nameof(collegeDbContext));
         }
 
-        public async Task<IResult> GetAllCourses()
+        public async Task<IEnumerable<Course>> GetAllCourses()
         {
             var courses = await _collegeDbContext.Courses.ToListAsync();
 
-            return Results.Ok(courses);
+            return courses;
         }
+
     }
 
 }
