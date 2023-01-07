@@ -2,7 +2,7 @@
 
 namespace College.MinApi.Helpers
 {
-    
+
     public static class DefaultApiResponse
     {
         public static ApiResponseDto<string> SendDefaultApiEndpointOutput()

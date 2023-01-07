@@ -20,13 +20,7 @@ app.MapGet("/api/students", GetAllStudents);
 
 static ApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
 {
-    IList<StudentDto> students = new List<StudentDto>()
-    {
-        new() { Name = "Sri Varu"},
-        new() { Name = "Manpreet Sing"},
-        new() { Name = "Scott Rudy"},
-        new() { Name = "Mohd Azim"}
-    };
+    IList<StudentDto> students = StudentDto.GetDummyStudents();
 
     return CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<StudentDto>>(students);
 }
