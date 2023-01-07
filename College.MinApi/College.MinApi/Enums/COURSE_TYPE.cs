@@ -1,4 +1,4 @@
-﻿namespace College.MinApi.Dtos
+﻿namespace College.MinApi.Enums
 {
     public enum COURSE_TYPE
     {

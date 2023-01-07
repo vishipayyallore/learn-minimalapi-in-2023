@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using College.MinApi.Enums;
 
 namespace College.MinApi.Dtos
 {
