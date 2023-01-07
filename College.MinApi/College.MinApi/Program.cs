@@ -3,16 +3,6 @@ using College.MinApi.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-static CollegeApiResponseDto<string> SendDefaultApiEndpointOutput()
-{
-    return CollegeApiResponseHelper.GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint");
-}
-
-static CollegeApiResponseDto<string> SendDefaultApiEndpointV1Output()
-{
-    return CollegeApiResponseHelper.GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint V1");
-}
-
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello Minimal API World !!");
@@ -22,9 +12,9 @@ app.MapGet("/hw", () =>
     return CollegeApiResponseHelper.GenerateCollegeApiResponse<string>("Hello Minimal API World !!");
 });
 
-app.MapGet("/api", SendDefaultApiEndpointOutput);
+app.MapGet("/api", DefaultApiResponseHelper.SendDefaultApiEndpointOutput);
 
-app.MapGet("/api/v1", () => SendDefaultApiEndpointV1Output());
+app.MapGet("/api/v1", () => DefaultApiResponseHelper.SendDefaultApiEndpointV1Output());
 
 app.MapGet("/api/students", GetAllStudents);
 
