@@ -9,16 +9,16 @@ app.MapGet("/", () => "Hello Minimal API World !!");
 
 app.MapGet("/hw", () =>
 {
-    return CollegeApiResponseHelper.GenerateCollegeApiResponse<string>("Hello Minimal API World !!");
+    return CollegeApiResponse.GenerateCollegeApiResponse<string>("Hello Minimal API World !!");
 });
 
-app.MapGet("/api", DefaultApiResponseHelper.SendDefaultApiEndpointOutput);
+app.MapGet("/api", DefaultApiResponse.SendDefaultApiEndpointOutput);
 
-app.MapGet("/api/v1", () => DefaultApiResponseHelper.SendDefaultApiEndpointV1Output());
+app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output());
 
 app.MapGet("/api/students", GetAllStudents);
 
-static CollegeApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
+static ApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
 {
     IList<StudentDto> students = new List<StudentDto>()
     {
@@ -28,7 +28,7 @@ static CollegeApiResponseDto<IEnumerable<StudentDto>> GetAllStudents()
         new() { Name = "Mohd Azim"}
     };
 
-    return CollegeApiResponseHelper.GenerateCollegeApiResponse<IEnumerable<StudentDto>>(students);
+    return CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<StudentDto>>(students);
 }
 
 app.Run();

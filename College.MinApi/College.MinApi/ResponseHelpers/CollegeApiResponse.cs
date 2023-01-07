@@ -3,13 +3,13 @@
 namespace College.MinApi.Helpers
 {
 
-    public static class CollegeApiResponseHelper
+    public static class CollegeApiResponse
     {
 
-        public static CollegeApiResponseDto<T> GenerateCollegeApiResponse<T>(T? data = default,
+        public static ApiResponseDto<T> GenerateCollegeApiResponse<T>(T? data = default,
             string message = "Success", bool success = true)
         {
-            return new CollegeApiResponseDto<T>
+            return new ApiResponseDto<T>
             {
                 Success = success,
                 Message = message,
