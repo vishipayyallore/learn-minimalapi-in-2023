@@ -1,4 +1,5 @@
-﻿using College.MinApi.Interfaces;
+﻿using College.MinApi.Configuration;
+using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using College.MinApi.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,7 @@ namespace College.MinApi.Extensions
             services.AddDbContext<CollegeDbContext>(options =>
                 options.UseInMemoryDatabase("CollegeDatabase"));
 
-            // services.AddAutoMapper(typeof(CollegeMapper));
-            // services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
             services.AddScoped<ICoursesRepository, CoursesRepository>();
 
