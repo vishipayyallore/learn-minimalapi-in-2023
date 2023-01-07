@@ -26,9 +26,11 @@ app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output())
 #endregion
 
 #region Courses Endpoints
-app.MapGet("/api/courses", () =>
+app.MapGet("/api/courses", (CollegeDbContext collegeDbContext) =>
 {
+    var courses = collegeDbContext.Courses.ToList();
 
+    return Results.Ok(courses);
 });
 #endregion
 
@@ -37,3 +39,8 @@ app.MapGet("/api/students", StudentsRepository.GetAllStudents);
 #endregion
 
 app.Run();
+
+// Output Types
+// Primitive Types
+// IActionResult
+// ActionResult<T>
