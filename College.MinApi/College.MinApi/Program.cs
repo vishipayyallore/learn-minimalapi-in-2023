@@ -52,7 +52,4 @@ app.MapGet(StudentsEndpoints.Root, StudentsRepository.GetAllStudents);
 
 app.Run();
 
-// Output Types
-// Primitive Types
-// IActionResult
-// ActionResult<T>
+// Output Types:  Primitive Types |  IActionResult |  ActionResult<T>
