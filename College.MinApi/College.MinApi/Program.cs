@@ -1,6 +1,8 @@
+using College.MinApi.Entities;
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
+using College.MinApi.Persistance;
 using College.MinApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +32,15 @@ app.MapGet("/api/courses", async (ICoursesRepository coursesRepository) =>
     var courses = await coursesRepository.GetAllCourses();
 
     return Results.Ok(courses);
+});
+
+app.MapPost("/api/courses", async (CollegeDbContext collegeDbContext, Course course) =>
+{
+    collegeDbContext.Courses.Add(course);
+
+    await collegeDbContext.SaveChangesAsync();
+
+    return Results.Created($"/api/courses/{course.Id}", course);
 });
 #endregion
 
