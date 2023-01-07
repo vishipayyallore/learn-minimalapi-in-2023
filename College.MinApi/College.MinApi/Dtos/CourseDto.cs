@@ -5,7 +5,9 @@ namespace College.MinApi.Dtos
 
     public class CourseDto
     {
-        public Guid CourseId { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        public string? CourseId { get; set; }
 
         public string CourseName { get; set; } = string.Empty;
 
@@ -13,15 +15,6 @@ namespace College.MinApi.Dtos
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public COURSE_TYPE CourseType { get; set; }
-    }
-
-    public enum COURSE_TYPE
-    {
-        ENGINEERING = 1,
-
-        MEDICAL,
-
-        MANAGEMENT
     }
 
 }
