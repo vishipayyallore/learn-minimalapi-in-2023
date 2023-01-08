@@ -32,21 +32,27 @@ app.MapGet(CoursesEndpoints.Root, async ([FromServices] ICoursesRepository cours
 {
     var coursesDto = await coursesRepository.GetAllCourses();
 
-    return Results.Ok(coursesDto);
+    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<CourseDto>>(coursesDto);
+
+    return Results.Ok(apiResponse);
 });
 
 app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
 {
     courseDto = await coursesRepository.AddCourse(courseDto);
 
-    return Results.Created($"{CoursesEndpoints.Root}/{courseDto.Id}", courseDto);
+    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+
+    return Results.Created($"{CoursesEndpoints.Root}/{courseDto.Id}", apiResponse);
 });
 
 app.MapGet(CoursesEndpoints.GetById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
 {
     var courseDto = await coursesRepository.GetCourseById(Id);
 
-    return courseDto is null ? Results.NotFound() : Results.Ok(courseDto);
+    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+
+    return courseDto is null ? Results.NotFound() : Results.Ok(apiResponse);
 });
 #endregion
 
