@@ -5,6 +5,8 @@ using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using College.MinApi.Repositories;
 
+using static College.MinApi.Common.Constants;
+
 var builder = WebApplication.CreateBuilder(args);
 
 #region Service collection
@@ -14,43 +16,40 @@ builder.Services.AddApplicationServices();
 var app = builder.Build();
 
 # region Root & Hello World Endpoints
-app.MapGet("/", () => "Hello Minimal API World !!");
+app.MapGet(HelloWorldEndpoints.Root, () => "Hello Minimal API World from Root !!");
 
-app.MapGet("/hw", () =>
+app.MapGet(HelloWorldEndpoints.HelloWorld, () =>
 {
-    return CollegeApiResponse.GenerateCollegeApiResponse<string>("Hello Minimal API World !!");
+    return CollegeApiResponse.GenerateCollegeApiResponse("Hello Minimal API World from /hw !!");
 });
 
-app.MapGet("/api", DefaultApiResponse.SendDefaultApiEndpointOutput);
+app.MapGet(HelloWorldEndpoints.Api, DefaultApiResponse.SendDefaultApiEndpointOutput);
 
-app.MapGet("/api/v1", () => DefaultApiResponse.SendDefaultApiEndpointV1Output());
+app.MapGet(HelloWorldEndpoints.ApiV1, () => DefaultApiResponse.SendDefaultApiEndpointV1Output());
 #endregion
 
 #region Courses Endpoints
-app.MapGet("/api/courses", async (ICoursesRepository coursesRepository) =>
+app.MapGet(CoursesEndpoints.Root, async (ICoursesRepository coursesRepository) =>
 {
     var courses = await coursesRepository.GetAllCourses();
 
     return Results.Ok(courses);
 });
 
-app.MapPost("/api/courses", async (CollegeDbContext collegeDbContext, Course course) =>
+app.MapPost(CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, Course course) =>
 {
     collegeDbContext.Courses.Add(course);
 
     await collegeDbContext.SaveChangesAsync();
 
-    return Results.Created($"/api/courses/{course.Id}", course);
+    return Results.Created($"{CoursesEndpoints.Root}/{course.Id}", course);
 });
 #endregion
 
 #region Students Endpoints
-app.MapGet("/api/students", StudentsRepository.GetAllStudents);
+app.MapGet(StudentsEndpoints.Root, StudentsRepository.GetAllStudents);
 #endregion
 
 app.Run();
 
-// Output Types
-// Primitive Types
-// IActionResult
-// ActionResult<T>
+// Output Types:  Primitive Types |  IActionResult |  ActionResult<T>

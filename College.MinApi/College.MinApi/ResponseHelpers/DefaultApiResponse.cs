@@ -7,12 +7,12 @@ namespace College.MinApi.Helpers
     {
         public static ApiResponseDto<string> SendDefaultApiEndpointOutput()
         {
-            return CollegeApiResponse.GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint");
+            return CollegeApiResponse.GenerateCollegeApiResponse("Welcome to Minimal API Endpoint");
         }
 
         public static ApiResponseDto<string> SendDefaultApiEndpointV1Output()
         {
-            return CollegeApiResponse.GenerateCollegeApiResponse<string>("Welcome to Minimal API Endpoint V1");
+            return CollegeApiResponse.GenerateCollegeApiResponse("Welcome to Minimal API Endpoint V1");
         }
 
     }

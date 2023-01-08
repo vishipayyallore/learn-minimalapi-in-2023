@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "efbcf1f1-618c-4a14-b4a7-6eb3a6d19b4f",
+		"name": "College API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24752915"
+	},
+	"item": [
+		{
+			"name": "Get Root Url /",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}",
+					"host": [
+						"{{hostUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /hw",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/hw",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"hw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /api",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /api/v1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /api/students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/students",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /api/courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/courses",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/courses",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseId\": \"C101\",\r\n    \"name\": \"C101\",\r\n    \"duration\": 1,\r\n    \"courseType\": 1,\r\n    \"description\": \"C101 Description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/courses",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
