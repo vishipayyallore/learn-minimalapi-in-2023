@@ -6,7 +6,7 @@ using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using College.MinApi.Repositories;
-
+using Microsoft.AspNetCore.Mvc;
 using static College.MinApi.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +38,7 @@ app.MapGet(CoursesEndpoints.Root, async (ICoursesRepository coursesRepository) =
     return Results.Ok(courses);
 });
 
-app.MapPost(CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, CourseDto courseDto, IMapper mapper) =>
+app.MapPost(CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, [FromBody] CourseDto courseDto, [FromServices] IMapper mapper) =>
 {
     var courseEntity = mapper.Map<Course>(courseDto);
 
