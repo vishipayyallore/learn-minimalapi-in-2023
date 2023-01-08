@@ -1,3 +1,5 @@
+using AutoMapper;
+using College.MinApi.Dtos;
 using College.MinApi.Entities;
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
@@ -36,13 +38,15 @@ app.MapGet(CoursesEndpoints.Root, async (ICoursesRepository coursesRepository) =
     return Results.Ok(courses);
 });
 
-app.MapPost(CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, Course course) =>
+app.MapPost(CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, CourseDto courseDto, IMapper mapper) =>
 {
-    collegeDbContext.Courses.Add(course);
+    var courseEntity = mapper.Map<Course>(courseDto);
 
+    collegeDbContext.Courses.Add(courseEntity);
     await collegeDbContext.SaveChangesAsync();
 
-    return Results.Created($"{CoursesEndpoints.Root}/{course.Id}", course);
+    courseDto = mapper.Map<CourseDto>(courseEntity);
+    return Results.Created($"{CoursesEndpoints.Root}/{courseDto.Id}", courseDto);
 });
 #endregion
 

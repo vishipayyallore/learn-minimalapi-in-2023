@@ -15,9 +15,13 @@
 
         public string? Description { get; set; }
 
-        public DateTime? Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
 
-        public DateTime? Updated { get; set; }
+        public string? CreatedBy { get; set; } = "Admin";
+
+        public DateTime Updated { get; set; } = DateTime.UtcNow;
+
+        public string? ModifiedBy { get; set; } = "Admin";
     }
 
 }
