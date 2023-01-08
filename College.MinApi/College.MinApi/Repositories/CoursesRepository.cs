@@ -20,11 +20,12 @@ namespace College.MinApi.Repositories
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEnumerable<Course>> GetAllCourses()
+        public async Task<IEnumerable<CourseDto>> GetAllCourses()
         {
             var courses = await _collegeDbContext.Courses.ToListAsync();
 
-            return courses;
+            var coursesDto = _mapper.Map<List<CourseDto>>(courses);
+            return coursesDto;
         }
 
         public async Task<CourseDto> AddCourse(CourseDto courseDto)

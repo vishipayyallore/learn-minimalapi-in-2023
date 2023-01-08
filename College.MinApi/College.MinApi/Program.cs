@@ -30,9 +30,9 @@ app.MapGet(HelloWorldEndpoints.ApiV1, () => DefaultApiResponse.SendDefaultApiEnd
 #region Courses Endpoints
 app.MapGet(CoursesEndpoints.Root, async ([FromServices] ICoursesRepository coursesRepository) =>
 {
-    var courses = await coursesRepository.GetAllCourses();
+    var coursesDto = await coursesRepository.GetAllCourses();
 
-    return Results.Ok(courses);
+    return Results.Ok(coursesDto);
 });
 
 app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
