@@ -41,6 +41,13 @@ app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromS
 
     return Results.Created($"{CoursesEndpoints.Root}/{courseDto.Id}", courseDto);
 });
+
+app.MapGet(CoursesEndpoints.GetById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
+{
+    var courseDto = await coursesRepository.GetCourseById(Id);
+
+    return courseDto is null ? Results.NotFound() : Results.Ok(courseDto);
+});
 #endregion
 
 #region Students Endpoints

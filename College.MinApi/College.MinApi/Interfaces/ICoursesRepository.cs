@@ -8,6 +8,8 @@ namespace College.MinApi.Interfaces
         Task<IEnumerable<CourseDto>> GetAllCourses();
 
         Task<CourseDto> AddCourse(CourseDto courseDto);
+
+        Task<CourseDto?> GetCourseById(Guid Id);
     }
 
 }
