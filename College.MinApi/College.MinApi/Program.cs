@@ -1,10 +1,7 @@
-using AutoMapper;
 using College.MinApi.Dtos;
-using College.MinApi.Entities;
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
-using College.MinApi.Persistance;
 using College.MinApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using static College.MinApi.Common.Constants;
@@ -31,21 +28,17 @@ app.MapGet(HelloWorldEndpoints.ApiV1, () => DefaultApiResponse.SendDefaultApiEnd
 #endregion
 
 #region Courses Endpoints
-app.MapGet(CoursesEndpoints.Root, async (ICoursesRepository coursesRepository) =>
+app.MapGet(CoursesEndpoints.Root, async ([FromServices] ICoursesRepository coursesRepository) =>
 {
     var courses = await coursesRepository.GetAllCourses();
 
     return Results.Ok(courses);
 });
 
-app.MapPost(CoursesEndpoints.Root, async (CollegeDbContext collegeDbContext, [FromBody] CourseDto courseDto, [FromServices] IMapper mapper) =>
+app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
 {
-    var courseEntity = mapper.Map<Course>(courseDto);
+    courseDto = await coursesRepository.AddCourse(courseDto);
 
-    collegeDbContext.Courses.Add(courseEntity);
-    await collegeDbContext.SaveChangesAsync();
-
-    courseDto = mapper.Map<CourseDto>(courseEntity);
     return Results.Created($"{CoursesEndpoints.Root}/{courseDto.Id}", courseDto);
 });
 #endregion
