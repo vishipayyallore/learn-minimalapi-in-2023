@@ -17,6 +17,8 @@
         public static class CoursesEndpoints
         {
             public static string Root { get; } = "/api/courses";
+
+            public static string GetById { get; } = "/api/courses/{Id}";
         }
 
         public static class StudentsEndpoints
