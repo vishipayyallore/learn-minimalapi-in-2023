@@ -4,7 +4,6 @@ using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using College.MinApi.Repositories;
-
 using static College.MinApi.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
