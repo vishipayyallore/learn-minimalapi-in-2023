@@ -7,133 +7,195 @@
 	},
 	"item": [
 		{
-			"name": "Get Root Url /",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostUrl}}",
-					"host": [
-						"{{hostUrl}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get /hw",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostUrl}}/hw",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"hw"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get /api",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostUrl}}/api",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get /api/v1",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostUrl}}/api/v1",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"v1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get /api/students",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostUrl}}/api/students",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"students"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get /api/courses",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{hostUrl}}/api/courses",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"courses"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /api/courses",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"courseId\": \"C101\",\r\n    \"name\": \"C101\",\r\n    \"duration\": 1,\r\n    \"courseType\": 1,\r\n    \"description\": \"C101 Description\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GET /api/courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api/courses",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{hostUrl}}/api/courses",
-					"host": [
-						"{{hostUrl}}"
-					],
-					"path": [
-						"api",
-						"courses"
-					]
+				{
+					"name": "GET /api/courses/{Id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api/courses/7a333d4f-fa93-439d-a0b9-4f3363ff133b",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"7a333d4f-fa93-439d-a0b9-4f3363ff133b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/courses",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseId\": \"C101\",\r\n    \"name\": \"C101\",\r\n    \"duration\": 1,\r\n    \"courseType\": 1,\r\n    \"description\": \"C101 Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/courses",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /api/courses/{Id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseId\": \"C101\",\r\n    \"name\": \"C101 Updated\",\r\n    \"duration\": 1,\r\n    \"courseType\": 1,\r\n    \"description\": \"C101 Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{hostUrl}}/api/courses/91d75144-fcde-4104-8f11-a13471dc6c37",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"91d75144-fcde-4104-8f11-a13471dc6c37"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "GET /api/students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api/students",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"students"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HelloWorld",
+			"item": [
+				{
+					"name": "GET Root Url /",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}",
+							"host": [
+								"{{hostUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /hw",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/hw",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"hw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/v1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api/v1",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
