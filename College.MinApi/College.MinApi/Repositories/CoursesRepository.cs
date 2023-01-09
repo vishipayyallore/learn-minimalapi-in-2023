@@ -63,6 +63,7 @@ namespace College.MinApi.Repositories
                 return default;
             }
 
+            courseDto.Id = Id;
             course = _mapper.Map<Course>(courseDto);
             await _collegeDbContext.SaveChangesAsync();
 
