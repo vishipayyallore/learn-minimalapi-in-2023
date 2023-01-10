@@ -50,6 +50,13 @@ app.MapGet(CoursesEndpoints.GetById, async (Guid Id, [FromServices] ICoursesRepo
 
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });
+
+app.MapPut(CoursesEndpoints.GetById, async (Guid Id, [FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
+{
+    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.UpdateCourseById(Id, courseDto));
+
+    return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
+});
 #endregion
 
 #region Students Endpoints

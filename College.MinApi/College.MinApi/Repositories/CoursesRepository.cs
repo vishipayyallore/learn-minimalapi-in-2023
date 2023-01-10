@@ -55,6 +55,21 @@ namespace College.MinApi.Repositories
             return courseDto;
         }
 
+        public async Task<CourseDto?> UpdateCourseById(Guid Id, CourseDto courseDto)
+        {
+            var course = await _collegeDbContext.Courses.FindAsync(Id);
+            if (course is null)
+            {
+                return default;
+            }
+
+            courseDto.Id = Id;
+            course = _mapper.Map<Course>(courseDto);
+            await _collegeDbContext.SaveChangesAsync();
+
+            courseDto = _mapper.Map<CourseDto>(course);
+            return courseDto;
+        }
     }
 
 }
