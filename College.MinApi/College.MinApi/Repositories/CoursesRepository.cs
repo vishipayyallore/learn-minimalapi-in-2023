@@ -70,6 +70,25 @@ namespace College.MinApi.Repositories
             courseDto = _mapper.Map<CourseDto>(course);
             return courseDto;
         }
+
+        public async Task<CourseDto?> DeleteCourseById(Guid Id)
+        {
+            CourseDto? courseDto = default;
+
+            var course = await _collegeDbContext.Courses.FindAsync(Id);
+            if (course is null)
+            {
+                return courseDto;
+            }
+
+            _collegeDbContext.Courses.Remove(course);
+            await _collegeDbContext.SaveChangesAsync();
+
+            courseDto = _mapper.Map<CourseDto>(course);
+
+            return courseDto;
+        }
+
     }
 
 }

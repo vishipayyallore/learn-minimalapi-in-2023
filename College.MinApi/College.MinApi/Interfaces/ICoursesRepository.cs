@@ -12,6 +12,8 @@ namespace College.MinApi.Interfaces
         Task<CourseDto?> GetCourseById(Guid Id);
 
         Task<CourseDto?> UpdateCourseById(Guid Id, CourseDto courseDto);
+
+        Task<CourseDto?> DeleteCourseById(Guid Id);
     }
 
 }
