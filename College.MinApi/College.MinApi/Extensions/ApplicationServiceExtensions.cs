@@ -1,4 +1,5 @@
-﻿using College.MinApi.Configuration;
+﻿using College.MinApi.Business;
+using College.MinApi.Configuration;
 using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using College.MinApi.Repositories;
@@ -16,6 +17,8 @@ namespace College.MinApi.Extensions
                 options.UseInMemoryDatabase("CollegeDatabase"));
 
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+            services.AddScoped<ICoursesBusiness, CoursesBusiness>();
 
             services.AddScoped<ICoursesRepository, CoursesRepository>();
 
