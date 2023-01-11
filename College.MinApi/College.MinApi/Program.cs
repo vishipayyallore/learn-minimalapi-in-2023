@@ -57,6 +57,13 @@ app.MapPut(CoursesEndpoints.GetById, async (Guid Id, [FromBody] CourseDto course
 
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });
+
+app.MapDelete (CoursesEndpoints.GetById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
+{
+    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.DeleteCourseById(Id));
+
+    return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
+});
 #endregion
 
 #region Students Endpoints
