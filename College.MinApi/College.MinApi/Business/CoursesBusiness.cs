@@ -14,7 +14,7 @@ namespace College.MinApi.Business
         public CoursesBusiness(ICoursesRepository coursesRepository, ILogger<CoursesBusiness> logger)
         {
             _coursesRepository = coursesRepository ?? throw new ArgumentNullException(nameof(coursesRepository));
-            
+
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -27,13 +27,13 @@ namespace College.MinApi.Business
             return CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<CourseDto>>(courses);
         }
 
-        public async Task<Tuple<string, ApiResponseDto<CourseDto>>> AddCourse(CourseDto courseDto)
+        public async Task<(string courseId, ApiResponseDto<CourseDto> apiResponse)> AddCourse(CourseDto courseDto)
         {
             _logger.LogInformation($"Starting CoursesBusiness::AddCourse()");
 
             courseDto = await _coursesRepository.AddCourse(courseDto);
 
-            return Tuple.Create($"{courseDto?.Id}", CollegeApiResponse.GenerateCollegeApiResponse(courseDto));
+            return ($"{courseDto?.Id}", CollegeApiResponse.GenerateCollegeApiResponse(courseDto));
         }
 
     }
