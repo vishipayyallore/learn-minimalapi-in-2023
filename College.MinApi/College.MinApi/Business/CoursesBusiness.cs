@@ -27,13 +27,13 @@ namespace College.MinApi.Business
             return CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<CourseDto>>(courses);
         }
 
-        public async Task<ApiResponseDto<CourseDto>> AddCourse(CourseDto courseDto)
+        public async Task<Tuple<string, ApiResponseDto<CourseDto>>> AddCourse(CourseDto courseDto)
         {
             _logger.LogInformation($"Starting CoursesBusiness::AddCourse()");
 
             courseDto = await _coursesRepository.AddCourse(courseDto);
 
-            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto>(courseDto);
+            return Tuple.Create($"{courseDto?.Id}", CollegeApiResponse.GenerateCollegeApiResponse(courseDto));
         }
 
     }

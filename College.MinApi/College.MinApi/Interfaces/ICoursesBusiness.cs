@@ -7,8 +7,10 @@ namespace College.MinApi.Interfaces
     {
         Task<ApiResponseDto<IEnumerable<CourseDto>>> GetAllCourses();
 
-        Task<ApiResponseDto<CourseDto>> AddCourse(CourseDto courseDto);
+        Task<Tuple<string, ApiResponseDto<CourseDto>>> AddCourse(CourseDto courseDto);
 
+        // Task<ApiResponseDto<CourseDto>> AddCourse(CourseDto courseDto);
+        // 
         //Task<CourseDto?> GetCourseById(Guid Id);
 
         //Task<CourseDto?> UpdateCourseById(Guid Id, CourseDto courseDto);
