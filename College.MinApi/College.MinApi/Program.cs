@@ -28,37 +28,33 @@ app.MapGet(HelloWorldEndpoints.ApiV1, () => DefaultApiResponse.SendDefaultApiEnd
 #endregion
 
 #region Courses Endpoints
-app.MapGet(CoursesEndpoints.Root, async ([FromServices] ICoursesRepository coursesRepository) =>
+app.MapGet(CoursesEndpoints.Root, async ([FromServices] ICoursesBusiness coursesBusiness) =>
 {
-    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<CourseDto>>(await coursesRepository.GetAllCourses());
-
-    return Results.Ok(apiResponse);
+    return Results.Ok(await coursesBusiness.GetAllCourses());
 });
 
-app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
+app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromServices] ICoursesBusiness coursesBusiness) =>
 {
-    courseDto = await coursesRepository.AddCourse(courseDto);
+    var apiResponse = await coursesBusiness.AddCourse(courseDto);
 
-    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
-
-    return Results.Created($"{CoursesEndpoints.Root}/{courseDto.Id}", apiResponse);
+    return Results.Created($"{CoursesEndpoints.Root}/{apiResponse.Data.Id}", apiResponse);
 });
 
-app.MapGet(CoursesEndpoints.GetById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
+app.MapGet(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
 {
     var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.GetCourseById(Id));
 
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });
 
-app.MapPut(CoursesEndpoints.GetById, async (Guid Id, [FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
+app.MapPut(CoursesEndpoints.ActionById, async (Guid Id, [FromBody] CourseDto courseDto, [FromServices] ICoursesRepository coursesRepository) =>
 {
     var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.UpdateCourseById(Id, courseDto));
 
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });
 
-app.MapDelete (CoursesEndpoints.GetById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
+app.MapDelete(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
 {
     var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.DeleteCourseById(Id));
 
