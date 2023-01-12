@@ -37,7 +37,7 @@ app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromS
 {
     var apiResponse = await coursesBusiness.AddCourse(courseDto);
 
-    return Results.Created($"{CoursesEndpoints.Root}/{apiResponse.Data.Id}", apiResponse);
+    return Results.Created($"{CoursesEndpoints.Root}/{apiResponse?.Data?.Id}", apiResponse);
 });
 
 app.MapGet(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
