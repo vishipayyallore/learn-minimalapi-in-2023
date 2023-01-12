@@ -40,9 +40,9 @@ app.MapPost(CoursesEndpoints.Root, async ([FromBody] CourseDto courseDto, [FromS
     return Results.Created($"{CoursesEndpoints.Root}/{courseId}", apiResponse);
 });
 
-app.MapGet(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
+app.MapGet(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesBusiness coursesBusiness) =>
 {
-    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.GetCourseById(Id));
+    var apiResponse = await coursesBusiness.GetCourseById(Id);
 
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });

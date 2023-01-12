@@ -36,6 +36,15 @@ namespace College.MinApi.Business
             return ($"{courseDto?.Id}", CollegeApiResponse.GenerateCollegeApiResponse(courseDto));
         }
 
+        public async Task<ApiResponseDto<CourseDto?>> GetCourseById(Guid Id)
+        {
+            _logger.LogInformation($"Starting CoursesBusiness::GetCourseById()");
+
+            var courseDto = await _coursesRepository.GetCourseById(Id);
+
+            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+        }
+
     }
 
 }
