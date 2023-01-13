@@ -26,6 +26,8 @@ namespace College.MinApi.Repositories
 
         public async Task<IEnumerable<CourseDto>> GetAllCourses()
         {
+            _logger.LogInformation($"Starting CoursesRepository::GetAllCourses()");
+
             var courses = await _collegeDbContext.Courses.ToListAsync();
 
             var coursesDto = _mapper.Map<List<CourseDto>>(courses);
@@ -34,6 +36,8 @@ namespace College.MinApi.Repositories
 
         public async Task<CourseDto> AddCourse(CourseDto courseDto)
         {
+            _logger.LogInformation($"Starting CoursesRepository::AddCourse()");
+
             var courseEntity = _mapper.Map<Course>(courseDto);
 
             _collegeDbContext.Courses.Add(courseEntity);
@@ -46,6 +50,8 @@ namespace College.MinApi.Repositories
 
         public async Task<CourseDto?> GetCourseById(Guid Id)
         {
+            _logger.LogInformation($"Starting CoursesRepository::GetCourseById()");
+
             CourseDto? courseDto = default;
 
             var course = await _collegeDbContext.Courses.FindAsync(Id);
@@ -61,6 +67,8 @@ namespace College.MinApi.Repositories
 
         public async Task<CourseDto?> UpdateCourseById(Guid Id, CourseDto courseDto)
         {
+            _logger.LogInformation($"Starting CoursesRepository::UpdateCourseById()");
+
             var course = await _collegeDbContext.Courses.FindAsync(Id);
             if (course is null)
             {
@@ -77,6 +85,8 @@ namespace College.MinApi.Repositories
 
         public async Task<CourseDto?> DeleteCourseById(Guid Id)
         {
+            _logger.LogInformation($"Starting CoursesRepository::DeleteCourseById()");
+
             CourseDto? courseDto = default;
 
             var course = await _collegeDbContext.Courses.FindAsync(Id);
