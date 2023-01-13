@@ -4,13 +4,13 @@ using System.Text.Json.Serialization;
 namespace College.MinApi.Dtos
 {
 
-    public class CourseDto
+    public record CourseDto
     {
         public Guid Id { get; set; }
 
         public string? CourseId { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         public int Duration { get; set; }
 

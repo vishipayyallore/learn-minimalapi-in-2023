@@ -1,7 +1,6 @@
 ﻿using College.MinApi.Dtos;
 using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
-using College.MinApi.Repositories;
 
 namespace College.MinApi.Business
 {
@@ -45,6 +44,23 @@ namespace College.MinApi.Business
             return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
         }
 
+        public async Task<ApiResponseDto<CourseDto?>> UpdateCourseById(Guid Id, CourseDto courseDto)
+        {
+            _logger.LogInformation($"Starting CoursesBusiness::UpdateCourseById()");
+
+            var modifiedCourseDto = await _coursesRepository.UpdateCourseById(Id, courseDto);
+
+            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(modifiedCourseDto);
+        }
+
+        public async Task<ApiResponseDto<CourseDto?>> DeleteCourseById(Guid Id)
+        {
+            _logger.LogInformation($"Starting CoursesBusiness::DeleteCourseById()");
+
+            var courseDto = await _coursesRepository.DeleteCourseById(Id);
+
+            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+        }
     }
 
 }
