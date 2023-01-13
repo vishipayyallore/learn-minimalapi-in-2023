@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using College.MinApi.Business;
 using College.MinApi.Dtos;
 using College.MinApi.Entities;
 using College.MinApi.Interfaces;
@@ -12,12 +13,15 @@ namespace College.MinApi.Repositories
     {
         private readonly CollegeDbContext _collegeDbContext;
         private readonly IMapper _mapper;
+        private readonly ILogger<CoursesRepository> _logger;
 
-        public CoursesRepository(CollegeDbContext collegeDbContext, IMapper mapper)
+        public CoursesRepository(CollegeDbContext collegeDbContext, IMapper mapper, ILogger<CoursesRepository> logger)
         {
             _collegeDbContext = collegeDbContext ?? throw new ArgumentNullException(nameof(collegeDbContext));
 
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<IEnumerable<CourseDto>> GetAllCourses()
@@ -88,7 +92,6 @@ namespace College.MinApi.Repositories
 
             return courseDto;
         }
-
     }
 
 }
