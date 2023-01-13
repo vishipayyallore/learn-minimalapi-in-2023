@@ -1,7 +1,7 @@
 ﻿namespace College.MinApi.Dtos
 {
 
-    public class StudentDto
+    public record StudentDto
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 

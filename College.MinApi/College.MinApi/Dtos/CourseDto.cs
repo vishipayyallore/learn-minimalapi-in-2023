@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace College.MinApi.Dtos
 {
 
-    public class CourseDto
+    public record CourseDto
     {
         public Guid Id { get; set; }
 
