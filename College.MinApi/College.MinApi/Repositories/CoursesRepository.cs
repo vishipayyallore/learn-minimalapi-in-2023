@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using College.MinApi.Business;
 using College.MinApi.Dtos;
 using College.MinApi.Entities;
 using College.MinApi.Interfaces;
