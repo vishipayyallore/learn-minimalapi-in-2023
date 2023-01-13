@@ -10,7 +10,7 @@ namespace College.MinApi.Dtos
 
         public string? CourseId { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
         public int Duration { get; set; }
 

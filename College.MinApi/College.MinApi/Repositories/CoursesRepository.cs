@@ -74,8 +74,11 @@ namespace College.MinApi.Repositories
                 return default;
             }
 
+            _collegeDbContext.Entry(course).State = EntityState.Detached;
             courseDto.Id = Id;
             course = _mapper.Map<Course>(courseDto);
+
+            _collegeDbContext.Entry(course).State = EntityState.Modified;
             await _collegeDbContext.SaveChangesAsync();
 
             courseDto = _mapper.Map<CourseDto>(course);
