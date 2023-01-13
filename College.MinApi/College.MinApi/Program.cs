@@ -54,9 +54,9 @@ app.MapPut(CoursesEndpoints.ActionById, async (Guid Id, [FromBody] CourseDto cou
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });
 
-app.MapDelete(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesRepository coursesRepository) =>
+app.MapDelete(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICoursesBusiness coursesBusiness) =>
 {
-    var apiResponse = CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(await coursesRepository.DeleteCourseById(Id));
+    var apiResponse = await coursesBusiness.DeleteCourseById(Id);
 
     return apiResponse.Data is null ? Results.NotFound() : Results.Ok(apiResponse);
 });

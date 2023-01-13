@@ -53,6 +53,14 @@ namespace College.MinApi.Business
             return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(modifiedCourseDto);
         }
 
+        public async Task<ApiResponseDto<CourseDto?>> DeleteCourseById(Guid Id)
+        {
+            _logger.LogInformation($"Starting CoursesBusiness::DeleteCourseById()");
+
+            var courseDto = await _coursesRepository.DeleteCourseById(Id);
+
+            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+        }
     }
 
 }
