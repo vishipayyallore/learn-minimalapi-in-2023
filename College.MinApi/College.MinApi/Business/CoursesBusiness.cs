@@ -1,7 +1,6 @@
 ﻿using College.MinApi.Dtos;
 using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
-using College.MinApi.Repositories;
 
 namespace College.MinApi.Business
 {
