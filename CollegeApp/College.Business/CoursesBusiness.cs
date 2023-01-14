@@ -1,5 +1,6 @@
 ﻿using College.ApplicationCore.Interfaces;
 using College.Data.Dtos;
+using Microsoft.Extensions.Logging;
 
 namespace College.MinApi.Business
 {
