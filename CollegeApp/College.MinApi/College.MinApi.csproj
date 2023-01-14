@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\College.ApplicationCore\College.ApplicationCore.csproj" />
+    <ProjectReference Include="..\College.Data\College.Data.csproj" />
   </ItemGroup>
   
 </Project>

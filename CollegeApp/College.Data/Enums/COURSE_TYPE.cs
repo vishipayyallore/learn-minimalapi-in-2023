@@ -1,4 +1,4 @@
-﻿namespace College.ApplicationCore.Enums
+﻿namespace College.Data.Enums
 {
     public enum COURSE_TYPE
     {

@@ -1,4 +1,4 @@
-﻿using College.ApplicationCore.Enums;
+﻿using College.Data.Enums;
 using System.Text.Json.Serialization;
 
 namespace College.MinApi.Dtos
