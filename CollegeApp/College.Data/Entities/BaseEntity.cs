@@ -1,4 +1,4 @@
-﻿namespace College.MinApi.Entities
+﻿namespace College.Data.Entities
 {
 
     public class BaseEntity

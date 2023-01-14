@@ -1,4 +1,4 @@
-﻿using College.MinApi.Dtos;
+﻿using College.Data.Dtos;
 
 namespace College.MinApi.Interfaces
 {

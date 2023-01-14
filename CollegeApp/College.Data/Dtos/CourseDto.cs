@@ -1,7 +1,7 @@
 ﻿using College.Data.Enums;
 using System.Text.Json.Serialization;
 
-namespace College.MinApi.Dtos
+namespace College.Data.Dtos
 {
 
     public record CourseDto

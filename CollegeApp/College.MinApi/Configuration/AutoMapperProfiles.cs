@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using College.MinApi.Dtos;
-using College.MinApi.Entities;
+using College.Data.Dtos;
+using College.Data.Entities;
 
 namespace College.MinApi.Configuration
 {

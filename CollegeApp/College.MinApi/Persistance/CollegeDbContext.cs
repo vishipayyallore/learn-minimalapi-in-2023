@@ -1,4 +1,4 @@
-﻿using College.MinApi.Entities;
+﻿using College.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace College.MinApi.Persistance

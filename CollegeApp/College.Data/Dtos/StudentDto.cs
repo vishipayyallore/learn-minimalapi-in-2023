@@ -1,4 +1,4 @@
-﻿namespace College.MinApi.Dtos
+﻿namespace College.Data.Dtos
 {
 
     public record StudentDto
