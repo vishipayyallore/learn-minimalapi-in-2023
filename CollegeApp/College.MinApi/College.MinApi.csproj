@@ -23,9 +23,14 @@
   <ItemGroup>
     <ProjectReference Include="..\College.ApplicationCore\College.ApplicationCore.csproj" />
     <ProjectReference Include="..\College.Business\College.Business.csproj" />
+    <ProjectReference Include="..\College.Configuration\College.Configuration.csproj" />
     <ProjectReference Include="..\College.Data\College.Data.csproj" />
     <ProjectReference Include="..\College.Persistence\College.Persistence.csproj" />
     <ProjectReference Include="..\College.Repositories\College.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
   
 </Project>
