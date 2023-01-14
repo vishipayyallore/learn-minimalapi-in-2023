@@ -23,6 +23,11 @@
   <ItemGroup>
     <ProjectReference Include="..\College.ApplicationCore\College.ApplicationCore.csproj" />
     <ProjectReference Include="..\College.Data\College.Data.csproj" />
+    <ProjectReference Include="..\College.Persistence\College.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistance\" />
   </ItemGroup>
   
 </Project>
