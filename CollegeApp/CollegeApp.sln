@@ -5,15 +5,21 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.MinApi", "College.MinApi\College.MinApi.csproj", "{7C17B72C-DDDF-420E-9E12-AC4F2A5BCAB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College.ApplicationCore", "College.ApplicationCore\College.ApplicationCore.csproj", "{315AD676-3255-4A48-9F53-F131CE0704C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.ApplicationCore", "College.ApplicationCore\College.ApplicationCore.csproj", "{315AD676-3255-4A48-9F53-F131CE0704C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College.Data", "College.Data\College.Data.csproj", "{1DA22B4A-E9EF-49D3-A75F-630375284DF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.Data", "College.Data\College.Data.csproj", "{1DA22B4A-E9EF-49D3-A75F-630375284DF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College.Persistence", "College.Persistence\College.Persistence.csproj", "{9B9F1E4C-5AB4-49A2-9383-25E4D8597B8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.Persistence", "College.Persistence\College.Persistence.csproj", "{9B9F1E4C-5AB4-49A2-9383-25E4D8597B8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College.Repositories", "College.Repositories\College.Repositories.csproj", "{71B9A09A-D884-44D6-BD69-03F048739B94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.Repositories", "College.Repositories\College.Repositories.csproj", "{71B9A09A-D884-44D6-BD69-03F048739B94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "College.Business", "College.Business\College.Business.csproj", "{769149EC-AB45-4BC1-AD6B-AC3435F22915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "College.Business", "College.Business\College.Business.csproj", "{769149EC-AB45-4BC1-AD6B-AC3435F22915}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostmanCollections", "PostmanCollections", "{CCE33F6B-D220-4B49-AF6E-2AF29DE0BBDB}"
+	ProjectSection(SolutionItems) = preProject
+		PostmanCollections\CollegeAPI-Local.postman_environment.json = PostmanCollections\CollegeAPI-Local.postman_environment.json
+		PostmanCollections\CollegeAPI.postman_collection.json = PostmanCollections\CollegeAPI.postman_collection.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
