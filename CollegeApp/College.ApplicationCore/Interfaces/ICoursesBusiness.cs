@@ -1,6 +1,6 @@
 ﻿using College.Data.Dtos;
 
-namespace College.MinApi.Interfaces
+namespace College.ApplicationCore.Interfaces
 {
 
     public interface ICoursesBusiness

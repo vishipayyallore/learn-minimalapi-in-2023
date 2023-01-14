@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using College.ApplicationCore.Interfaces;
 using College.Data.Dtos;
 using College.Data.Entities;
-using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,7 +1,7 @@
+using College.ApplicationCore.Interfaces;
 using College.Data.Dtos;
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
-using College.MinApi.Interfaces;
 using College.MinApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using static College.ApplicationCore.Common.Constants;

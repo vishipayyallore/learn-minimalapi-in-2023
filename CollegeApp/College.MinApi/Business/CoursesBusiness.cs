@@ -1,6 +1,6 @@
-﻿using College.Data.Dtos;
+﻿using College.ApplicationCore.Interfaces;
+using College.Data.Dtos;
 using College.MinApi.Helpers;
-using College.MinApi.Interfaces;
 
 namespace College.MinApi.Business
 {

@@ -1,6 +1,6 @@
-﻿using College.MinApi.Business;
+﻿using College.ApplicationCore.Interfaces;
+using College.MinApi.Business;
 using College.MinApi.Configuration;
-using College.MinApi.Interfaces;
 using College.MinApi.Persistance;
 using College.MinApi.Repositories;
 using Microsoft.EntityFrameworkCore;
