@@ -1,7 +1,7 @@
 using College.ApplicationCore.Interfaces;
+using College.Business;
 using College.Data.Dtos;
 using College.MinApi.Extensions;
-using College.MinApi.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using static College.ApplicationCore.Common.Constants;
 
@@ -21,9 +21,9 @@ app.MapGet(HelloWorldEndpoints.HelloWorld, () =>
     return ApiResponseDto<string>.Create("Hello Minimal API World from /hw !!");
 });
 
-app.MapGet(HelloWorldEndpoints.Api, DefaultApiResponse.SendDefaultApiEndpointOutput);
+app.MapGet(HelloWorldEndpoints.Api, DefaultResponseBusiness.SendDefaultApiEndpointOutput);
 
-app.MapGet(HelloWorldEndpoints.ApiV1, () => DefaultApiResponse.SendDefaultApiEndpointV1Output());
+app.MapGet(HelloWorldEndpoints.ApiV1, () => DefaultResponseBusiness.SendDefaultApiEndpointV1Output());
 #endregion
 
 #region Courses Endpoints

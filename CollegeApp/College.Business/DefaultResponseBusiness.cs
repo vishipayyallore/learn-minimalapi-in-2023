@@ -1,9 +1,9 @@
 ﻿using College.Data.Dtos;
 
-namespace College.MinApi.Helpers
+namespace College.Business
 {
 
-    public static class DefaultApiResponse
+    public static class DefaultResponseBusiness
     {
         public static ApiResponseDto<string> SendDefaultApiEndpointOutput()
         {
