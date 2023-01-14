@@ -1,4 +1,4 @@
-﻿namespace College.MinApi.Enums
+﻿namespace College.ApplicationCore.Enums
 {
     public enum COURSE_TYPE
     {
