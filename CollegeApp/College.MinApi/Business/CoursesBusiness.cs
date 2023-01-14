@@ -1,6 +1,5 @@
 ﻿using College.ApplicationCore.Interfaces;
 using College.Data.Dtos;
-using College.MinApi.Helpers;
 
 namespace College.MinApi.Business
 {
@@ -23,7 +22,7 @@ namespace College.MinApi.Business
 
             var courses = await _coursesRepository.GetAllCourses();
 
-            return CollegeApiResponse.GenerateCollegeApiResponse<IEnumerable<CourseDto>>(courses);
+            return ApiResponseDto<IEnumerable<CourseDto>>.Create(courses);
         }
 
         public async Task<(string courseId, ApiResponseDto<CourseDto> apiResponse)> AddCourse(CourseDto courseDto)
@@ -32,7 +31,7 @@ namespace College.MinApi.Business
 
             courseDto = await _coursesRepository.AddCourse(courseDto);
 
-            return ($"{courseDto?.Id}", CollegeApiResponse.GenerateCollegeApiResponse(courseDto));
+            return ($"{courseDto?.Id}", ApiResponseDto<CourseDto>.Create(courseDto));
         }
 
         public async Task<ApiResponseDto<CourseDto?>> GetCourseById(Guid Id)
@@ -41,7 +40,7 @@ namespace College.MinApi.Business
 
             var courseDto = await _coursesRepository.GetCourseById(Id);
 
-            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+            return ApiResponseDto<CourseDto?>.Create(courseDto);
         }
 
         public async Task<ApiResponseDto<CourseDto?>> UpdateCourseById(Guid Id, CourseDto courseDto)
@@ -50,7 +49,7 @@ namespace College.MinApi.Business
 
             var modifiedCourseDto = await _coursesRepository.UpdateCourseById(Id, courseDto);
 
-            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(modifiedCourseDto);
+            return ApiResponseDto<CourseDto?>.Create(modifiedCourseDto);
         }
 
         public async Task<ApiResponseDto<CourseDto?>> DeleteCourseById(Guid Id)
@@ -59,7 +58,7 @@ namespace College.MinApi.Business
 
             var courseDto = await _coursesRepository.DeleteCourseById(Id);
 
-            return CollegeApiResponse.GenerateCollegeApiResponse<CourseDto?>(courseDto);
+            return ApiResponseDto<CourseDto?>.Create(courseDto);
         }
     }
 

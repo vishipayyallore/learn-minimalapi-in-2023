@@ -18,7 +18,7 @@ app.MapGet(HelloWorldEndpoints.Root, () => "Hello Minimal API World from Root !!
 
 app.MapGet(HelloWorldEndpoints.HelloWorld, () =>
 {
-    return CollegeApiResponse.GenerateCollegeApiResponse("Hello Minimal API World from /hw !!");
+    return ApiResponseDto<string>.Create("Hello Minimal API World from /hw !!");
 });
 
 app.MapGet(HelloWorldEndpoints.Api, DefaultApiResponse.SendDefaultApiEndpointOutput);

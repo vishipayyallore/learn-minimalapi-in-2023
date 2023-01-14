@@ -26,9 +26,5 @@
     <ProjectReference Include="..\College.Persistence\College.Persistence.csproj" />
     <ProjectReference Include="..\College.Repositories\College.Repositories.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
   
 </Project>
