@@ -2,7 +2,6 @@ using College.ApplicationCore.Interfaces;
 using College.Data.Dtos;
 using College.MinApi.Extensions;
 using College.MinApi.Helpers;
-using College.MinApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using static College.ApplicationCore.Common.Constants;
 
@@ -63,7 +62,7 @@ app.MapDelete(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICours
 #endregion
 
 #region Students Endpoints
-app.MapGet(StudentsEndpoints.Root, StudentsRepository.GetAllStudents);
+// app.MapGet(StudentsEndpoints.Root, StudentsRepository.GetAllStudents);
 #endregion
 
 app.Run();

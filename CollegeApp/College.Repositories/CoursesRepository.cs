@@ -4,6 +4,7 @@ using College.Data.Dtos;
 using College.Data.Entities;
 using College.MinApi.Persistance;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace College.MinApi.Repositories
 {

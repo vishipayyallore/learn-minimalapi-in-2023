@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\College.ApplicationCore\College.ApplicationCore.csproj" />
+    <ProjectReference Include="..\College.Persistence\College.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
