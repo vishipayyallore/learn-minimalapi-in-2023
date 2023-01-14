@@ -16,5 +16,9 @@
   <ItemGroup>
     <Folder Include="PostmanCollections\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\College.ApplicationCore\College.ApplicationCore.csproj" />
+  </ItemGroup>
   
 </Project>

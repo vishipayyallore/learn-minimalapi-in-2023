@@ -4,7 +4,7 @@ using College.MinApi.Helpers;
 using College.MinApi.Interfaces;
 using College.MinApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using static College.MinApi.Common.Constants;
+using static College.ApplicationCore.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 

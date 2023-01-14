@@ -1,4 +1,4 @@
-﻿namespace College.MinApi.Common
+﻿namespace College.ApplicationCore.Common
 {
 
     public static class Constants
