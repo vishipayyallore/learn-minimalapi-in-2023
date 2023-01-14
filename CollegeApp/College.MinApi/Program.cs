@@ -8,9 +8,7 @@ using static College.ApplicationCore.Common.Constants;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Service collection
-builder.Services
-        .AddThirdPartyServices()
-        .AddApplicationServices();
+builder.Services.AddThirdPartyServices().AddApplicationServices();
 #endregion
 
 var app = builder.Build();
@@ -68,5 +66,3 @@ app.MapDelete(CoursesEndpoints.ActionById, async (Guid Id, [FromServices] ICours
 #endregion
 
 app.Run();
-
-// Output Types:  Primitive Types |  IActionResult |  ActionResult<T>
