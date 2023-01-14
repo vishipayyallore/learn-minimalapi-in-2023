@@ -1,22 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="PostmanCollections\**" />
-    <Content Remove="PostmanCollections\**" />
-    <EmbeddedResource Remove="PostmanCollections\**" />
-    <None Remove="PostmanCollections\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.1" />
-    <PackageReference Include="AutoMapper" Version="12.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
   </ItemGroup>
 
@@ -24,8 +16,6 @@
     <ProjectReference Include="..\College.ApplicationCore\College.ApplicationCore.csproj" />
     <ProjectReference Include="..\College.Business\College.Business.csproj" />
     <ProjectReference Include="..\College.Configuration\College.Configuration.csproj" />
-    <ProjectReference Include="..\College.Data\College.Data.csproj" />
-    <ProjectReference Include="..\College.Dependencies\College.Dependencies.csproj" />
     <ProjectReference Include="..\College.Persistence\College.Persistence.csproj" />
     <ProjectReference Include="..\College.Repositories\College.Repositories.csproj" />
   </ItemGroup>

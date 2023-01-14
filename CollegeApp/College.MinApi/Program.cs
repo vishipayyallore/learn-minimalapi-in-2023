@@ -1,14 +1,16 @@
 using College.ApplicationCore.Interfaces;
 using College.Business;
 using College.Data.Dtos;
-using College.MinApi.Extensions;
+using College.Dependencies;
 using Microsoft.AspNetCore.Mvc;
 using static College.ApplicationCore.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Service collection
-builder.Services.AddApplicationServices();
+builder.Services
+        .AddThirdPartyServices()
+        .AddApplicationServices();
 #endregion
 
 var app = builder.Build();
