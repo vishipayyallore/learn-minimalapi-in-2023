@@ -1,4 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using School.Data.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var conn = builder.Configuration.GetConnectionString("SchoolAppDbConnection");
+builder.Services.AddDbContext<SchoolAppDbContext>(options =>
+{
+    options.UseSqlServer(conn);
+});
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
