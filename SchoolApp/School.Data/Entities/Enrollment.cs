@@ -2,9 +2,9 @@
 {
     public class Enrollment : BaseEntity
     {
-        public int CourseId { get; set; }
+        public Guid CourseId { get; set; }
 
-        public int StudentId { get; set; }
+        public Guid StudentId { get; set; }
 
         public virtual Course? Course { get; set; }
 
