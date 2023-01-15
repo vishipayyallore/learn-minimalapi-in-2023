@@ -12,7 +12,7 @@ using School.Data.Persistence;
 namespace School.Data.Migrations
 {
     [DbContext(typeof(SchoolAppDbContext))]
-    [Migration("20230115070958_InitialVersion")]
+    [Migration("20230115074343_InitialVersion")]
     partial class InitialVersion
     {
         /// <inheritdoc />

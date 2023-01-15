@@ -12,12 +12,18 @@ namespace School.Data.SeedData
             _ = builder.HasData(
                 new
                 {
+                    Id = Guid.NewGuid(),
+
                     Title = "Minimal API Development",
+
                     Credits = 3
                 },
                 new
                 {
+                    Id = Guid.NewGuid(),
+
                     Title = "Ultimate API Development",
+
                     Credits = 5
                 }
             );

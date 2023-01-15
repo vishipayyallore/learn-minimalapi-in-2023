@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using School.Data.Entities;
-using School.Data.SeedData;
 
 namespace School.Data.Persistence
 {
@@ -22,9 +21,9 @@ namespace School.Data.Persistence
         {
             base.OnModelCreating(builder);
 
-            builder.ApplyConfiguration(new CourseData());
+            //builder.ApplyConfiguration(new CourseData());
 
-            builder.ApplyConfiguration(new UserRoleData());
+            //builder.ApplyConfiguration(new UserRoleData());
         }
 
     }
