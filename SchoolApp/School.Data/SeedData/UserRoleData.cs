@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace School.Data.SeedData
 {
 
-    internal class UserRoleData : IEntityTypeConfiguration<IdentityUserRole<string>>
+    internal class UserRoleData : IEntityTypeConfiguration<IdentityRole>
     {
-        public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
+        public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
             builder.HasData(
-                new IdentityUserRole<string>
+                new IdentityRole
                 {
-                    RoleId = "d1b5952a-2162-46c7-b29e-1a2a68922c14",
-                    UserId = "408aa945-3d84-4421-8342-7269ec64d949",
+                    Name = "Administrator",
+                    NormalizedName = "ADMINISTRATOR",
                 },
-                new IdentityUserRole<string>
+                new IdentityRole
                 {
-                    RoleId = "42358d3e-3c22-45e1-be81-6caa7ba865ef",
-                    UserId = "3f4631bd-f907-4409-b416-ba356312e659",
+                    Name = "User",
+                    NormalizedName = "USER",
                 }
             );
         }
