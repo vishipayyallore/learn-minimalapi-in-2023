@@ -13,18 +13,22 @@ namespace School.Data.SeedData
                 new
                 {
                     Id = Guid.NewGuid(),
-
                     Title = "Minimal API Development",
-
-                    Credits = 3
+                    Credits = 3,
+                    CreatedDate = DateTime.UtcNow,
+                    CreatedBy = "Admin",
+                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedBy = "Admin"
                 },
                 new
                 {
                     Id = Guid.NewGuid(),
-
                     Title = "Ultimate API Development",
-
-                    Credits = 5
+                    Credits = 5,
+                    CreatedDate = DateTime.UtcNow,
+                    CreatedBy = "Admin",
+                    ModifiedDate = DateTime.UtcNow,
+                    ModifiedBy = "Admin"
                 }
             );
         }
