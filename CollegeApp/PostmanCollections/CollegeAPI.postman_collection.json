@@ -10,44 +10,21 @@
 			"name": "Courses",
 			"item": [
 				{
-					"name": "GET /api/courses",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{hostUrl}}/api/courses",
-							"host": [
-								"{{hostUrl}}"
-							],
-							"path": [
-								"api",
-								"courses"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET /api/courses/{Id}",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{hostUrl}}/api/courses/7a333d4f-fa93-439d-a0b9-4f3363ff133b",
-							"host": [
-								"{{hostUrl}}"
-							],
-							"path": [
-								"api",
-								"courses",
-								"7a333d4f-fa93-439d-a0b9-4f3363ff133b"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "POST /api/courses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"pm.collectionVariables.set('recordId', responseJson.data.id);\r",
+									"\r",
+									"// console.log(recordId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -74,6 +51,43 @@
 					"response": []
 				},
 				{
+					"name": "GET /api/courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api/courses",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/courses/{Id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{hostUrl}}/api/courses/{{recordId}}",
+							"host": [
+								"{{hostUrl}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"{{recordId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "PUT /api/courses/{Id}",
 					"request": {
 						"method": "PUT",
@@ -88,14 +102,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{hostUrl}}/api/courses/91d75144-fcde-4104-8f11-a13471dc6c37",
+							"raw": "{{hostUrl}}/api/courses/{{recordId}}",
 							"host": [
 								"{{hostUrl}}"
 							],
 							"path": [
 								"api",
 								"courses",
-								"91d75144-fcde-4104-8f11-a13471dc6c37"
+								"{{recordId}}"
 							]
 						}
 					},
@@ -107,14 +121,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{hostUrl}}/api/courses/5dee9c4d-4ebe-40ad-a0d1-74d59846c1cb",
+							"raw": "{{hostUrl}}/api/courses/{{recordId}}",
 							"host": [
 								"{{hostUrl}}"
 							],
 							"path": [
 								"api",
 								"courses",
-								"5dee9c4d-4ebe-40ad-a0d1-74d59846c1cb"
+								"{{recordId}}"
 							]
 						}
 					},
@@ -215,6 +229,12 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "recordId",
+			"value": ""
 		}
 	]
 }
