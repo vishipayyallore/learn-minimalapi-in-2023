@@ -12,8 +12,8 @@ using School.Data.Persistence;
 namespace School.Data.Migrations
 {
     [DbContext(typeof(SchoolAppDbContext))]
-    [Migration("20230115070958_initialversion")]
-    partial class initialversion
+    [Migration("20230115070958_InitialVersion")]
+    partial class InitialVersion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

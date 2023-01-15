@@ -23,6 +23,8 @@ namespace School.Data.Persistence
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new CourseData());
+
+            builder.ApplyConfiguration(new UserRoleData());
         }
 
     }

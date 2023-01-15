@@ -5,7 +5,7 @@
 namespace School.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initialversion : Migration
+    public partial class InitialVersion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
