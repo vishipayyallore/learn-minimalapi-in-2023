@@ -41,5 +41,19 @@ app.MapPost(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext scho
     return Results.Created($"{CoursesEndpoints.Root}/{course.Id}", course);
 }).WithName("AddCourse");
 
+app.MapPut(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course, Guid Id) =>
+{
+    var courseExists = await schoolAppDbContext.Courses.AnyAsync(r => r.Id == Id);
+    if (!courseExists)
+    {
+        return Results.NotFound();
+    }
+
+    schoolAppDbContext.Update(course);
+    await schoolAppDbContext.SaveChangesAsync();
+
+    return Results.NoContent();
+}).WithName("UpdateCourseById");
+
 app.Run();
 
