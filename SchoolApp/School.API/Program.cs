@@ -12,6 +12,7 @@ builder.Services.AddThirdPartyServices(builder.Configuration.GetConnectionString
 
 var app = builder.Build();
 
+#region HTTP request pipeline.
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -22,7 +23,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+#endregion
 
+#region Courses Endpoints
 app.MapGet(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext) =>
 {
     return Results.Ok(await schoolAppDbContext.Courses.ToListAsync());
@@ -30,7 +33,7 @@ app.MapGet(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoo
 
 app.MapGet(CoursesEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
 {
-    return await schoolAppDbContext.FindAsync<Course>(Id) is Course course ? Results.Ok(course) : Results.NotFound();
+    return await schoolAppDbContext.Courses.FindAsync(Id) is Course course ? Results.Ok(course) : Results.NotFound();
 }).WithName("GetCourseById");
 
 app.MapPost(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
@@ -54,6 +57,21 @@ app.MapPut(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoo
 
     return Results.NoContent();
 }).WithName("UpdateCourseById");
+
+app.MapDelete(CoursesEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
+{
+    var course = await schoolAppDbContext.Courses.FindAsync(Id);
+    if (course is null)
+    {
+        return Results.NotFound();
+    }
+
+    schoolAppDbContext.Remove(course);
+    await schoolAppDbContext.SaveChangesAsync();
+
+    return Results.NoContent();
+}).WithName("DeleteCourseById");
+#endregion
 
 app.Run();
 
