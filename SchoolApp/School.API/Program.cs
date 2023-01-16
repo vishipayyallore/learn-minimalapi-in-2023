@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.API.Extensions;
+using School.Data.Persistence;
+using static School.ApplicationCore.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,11 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
+
+app.MapGet(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext) =>
+{
+    return Results.Ok(await schoolAppDbContext.Courses.ToListAsync());
+}).WithName("GetAllCourses");
 
 app.Run();
 
