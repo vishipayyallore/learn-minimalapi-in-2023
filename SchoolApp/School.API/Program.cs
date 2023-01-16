@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.API.Extensions;
+using School.Data.Entities;
 using School.Data.Persistence;
 using static School.ApplicationCore.Common.Constants;
 
@@ -26,6 +27,11 @@ app.MapGet(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoo
 {
     return Results.Ok(await schoolAppDbContext.Courses.ToListAsync());
 }).WithName("GetAllCourses");
+
+app.MapGet(CoursesEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
+{
+    return await schoolAppDbContext.FindAsync<Course>(Id) is Course course ? Results.Ok(course) : Results.NotFound();
+}).WithName("GetCourseById");
 
 app.Run();
 
