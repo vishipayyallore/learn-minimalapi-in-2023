@@ -33,5 +33,13 @@ app.MapGet(CoursesEndpoints.ActionById, async ([FromServices] SchoolAppDbContext
     return await schoolAppDbContext.FindAsync<Course>(Id) is Course course ? Results.Ok(course) : Results.NotFound();
 }).WithName("GetCourseById");
 
+app.MapPost(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
+{
+    await schoolAppDbContext.Courses.AddAsync(course);
+    await schoolAppDbContext.SaveChangesAsync();
+
+    return Results.Created($"{CoursesEndpoints.Root}/{course.Id}", course);
+}).WithName("AddCourse");
+
 app.Run();
 
