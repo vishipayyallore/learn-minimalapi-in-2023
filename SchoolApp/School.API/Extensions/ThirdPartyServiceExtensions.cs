@@ -10,13 +10,18 @@ namespace School.API.Extensions
         public static IServiceCollection AddThirdPartyServices(this IServiceCollection services, string connectionString)
         {
             _ = services.AddDbContext<SchoolAppDbContext>(options =>
-                    {
-                        options.UseSqlServer(connectionString);
-                    });
+                {
+                    options.UseSqlServer(connectionString);
+                });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+            _ = services.AddEndpointsApiExplorer();
+            _ = services.AddSwaggerGen();
+
+            _ = services.AddCors(options =>
+                {
+                    options.AddPolicy("AllowAll", policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+                });
 
             return services;
         }

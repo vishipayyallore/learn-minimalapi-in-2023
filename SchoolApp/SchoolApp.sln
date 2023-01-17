@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.API", "School.API\School.API.csproj", "{ED2D6F2C-1BEC-4AD1-AEEA-007125CA57C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Data", "School.Data\School.Data.csproj", "{960D6F0E-86B5-4EF2-877F-99434B08A7F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Data", "School.Data\School.Data.csproj", "{960D6F0E-86B5-4EF2-877F-99434B08A7F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.ApplicationCore", "School.ApplicationCore\School.ApplicationCore.csproj", "{80B53594-A88A-4CCB-9DAA-BF5F6E70D391}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{960D6F0E-86B5-4EF2-877F-99434B08A7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{960D6F0E-86B5-4EF2-877F-99434B08A7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{960D6F0E-86B5-4EF2-877F-99434B08A7F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B53594-A88A-4CCB-9DAA-BF5F6E70D391}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B53594-A88A-4CCB-9DAA-BF5F6E70D391}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B53594-A88A-4CCB-9DAA-BF5F6E70D391}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B53594-A88A-4CCB-9DAA-BF5F6E70D391}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
