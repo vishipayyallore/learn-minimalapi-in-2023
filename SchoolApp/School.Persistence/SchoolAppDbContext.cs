@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using School.Data.Entities;
 using School.Data.SeedData;
 
-namespace School.Data.Persistence
+namespace School.Persistence
 {
 
     public class SchoolAppDbContext : IdentityDbContext

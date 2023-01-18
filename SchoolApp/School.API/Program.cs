@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using School.API.Extensions;
 using School.Data.Entities;
-using School.Data.Persistence;
+using School.Persistence;
 using static School.ApplicationCore.Common.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
