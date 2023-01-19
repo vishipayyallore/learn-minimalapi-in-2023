@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using School.Data.Persistence;
+using School.Persistence;
 
 #nullable disable
 
-namespace School.Data.Migrations
+namespace School.Persistence.Migrations
 {
     [DbContext(typeof(SchoolAppDbContext))]
-    [Migration("20230115074343_InitialVersion")]
+    [Migration("20230118133249_InitialVersion")]
     partial class InitialVersion
     {
         /// <inheritdoc />
@@ -50,6 +50,20 @@ namespace School.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ac7fa566-e2f1-4487-8f72-d4e1792e3680",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "fc7de4a4-32ba-4be5-8186-268feb7211e4",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -252,6 +266,28 @@ namespace School.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ee759492-0ab7-4b77-87e6-00a71db963a1"),
+                            CreatedBy = "Admin",
+                            CreatedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(388),
+                            Credits = 3,
+                            ModifiedBy = "Admin",
+                            ModifiedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(394),
+                            Title = "Minimal API Development"
+                        },
+                        new
+                        {
+                            Id = new Guid("0d04b78d-eacb-4b82-93cf-7caccb253a46"),
+                            CreatedBy = "Admin",
+                            CreatedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(418),
+                            Credits = 5,
+                            ModifiedBy = "Admin",
+                            ModifiedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(419),
+                            Title = "Ultimate API Development"
+                        });
                 });
 
             modelBuilder.Entity("School.Data.Entities.Enrollment", b =>

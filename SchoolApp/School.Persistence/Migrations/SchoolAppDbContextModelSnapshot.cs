@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using School.Data.Persistence;
+using School.Persistence;
 
 #nullable disable
 
-namespace School.Data.Migrations
+namespace School.Persistence.Migrations
 {
     [DbContext(typeof(SchoolAppDbContext))]
     partial class SchoolAppDbContextModelSnapshot : ModelSnapshot
@@ -51,13 +51,13 @@ namespace School.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "59ba65f1-c03e-4e9f-8bbe-47a5b88178ab",
+                            Id = "ac7fa566-e2f1-4487-8f72-d4e1792e3680",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "24ff4e9d-4e10-4fdd-ab00-a9461aff7c2e",
+                            Id = "fc7de4a4-32ba-4be5-8186-268feb7211e4",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -267,22 +267,22 @@ namespace School.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e5daea27-ace4-40b0-9802-212f08733704"),
+                            Id = new Guid("ee759492-0ab7-4b77-87e6-00a71db963a1"),
                             CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2023, 1, 15, 7, 59, 42, 465, DateTimeKind.Utc).AddTicks(3136),
+                            CreatedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(388),
                             Credits = 3,
                             ModifiedBy = "Admin",
-                            ModifiedDate = new DateTime(2023, 1, 15, 7, 59, 42, 465, DateTimeKind.Utc).AddTicks(3140),
+                            ModifiedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(394),
                             Title = "Minimal API Development"
                         },
                         new
                         {
-                            Id = new Guid("d064cc42-442b-433d-9609-b7bcf0a28a82"),
+                            Id = new Guid("0d04b78d-eacb-4b82-93cf-7caccb253a46"),
                             CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2023, 1, 15, 7, 59, 42, 465, DateTimeKind.Utc).AddTicks(3143),
+                            CreatedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(418),
                             Credits = 5,
                             ModifiedBy = "Admin",
-                            ModifiedDate = new DateTime(2023, 1, 15, 7, 59, 42, 465, DateTimeKind.Utc).AddTicks(3143),
+                            ModifiedDate = new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(419),
                             Title = "Ultimate API Development"
                         });
                 });

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Data.Persistence;
+using School.Persistence;
 
 namespace School.API.Extensions
 {

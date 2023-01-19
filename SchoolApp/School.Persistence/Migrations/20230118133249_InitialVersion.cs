@@ -2,7 +2,9 @@
 
 #nullable disable
 
-namespace School.Data.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace School.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialVersion : Migration
@@ -219,6 +221,24 @@ namespace School.Data.Migrations
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "ac7fa566-e2f1-4487-8f72-d4e1792e3680", null, "Administrator", "ADMINISTRATOR" },
+                    { "fc7de4a4-32ba-4be5-8186-268feb7211e4", null, "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Courses",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "Credits", "ModifiedBy", "ModifiedDate", "Title" },
+                values: new object[,]
+                {
+                    { new Guid("0d04b78d-eacb-4b82-93cf-7caccb253a46"), "Admin", new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(418), 5, "Admin", new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(419), "Ultimate API Development" },
+                    { new Guid("ee759492-0ab7-4b77-87e6-00a71db963a1"), "Admin", new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(388), 3, "Admin", new DateTime(2023, 1, 18, 13, 32, 48, 470, DateTimeKind.Utc).AddTicks(394), "Minimal API Development" }
                 });
 
             migrationBuilder.CreateIndex(
