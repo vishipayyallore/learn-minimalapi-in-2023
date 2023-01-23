@@ -12,11 +12,11 @@ namespace School.Persistence
         {
         }
 
-        public DbSet<Course> Courses { get; set; }
+        public DbSet<Course> Courses => Set<Course>();
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> Students => Set<Student>();
 
-        public DbSet<Enrollment> Enrollments { get; set; }
+        public DbSet<Enrollment> Enrollments => Set<Enrollment>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
