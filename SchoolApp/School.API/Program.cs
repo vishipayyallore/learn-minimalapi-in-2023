@@ -12,18 +12,8 @@ builder.Services.AddThirdPartyServices(builder.Configuration.GetConnectionString
 
 var app = builder.Build();
 
-#region HTTP request pipeline.
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseCors("AllowAll");
-#endregion
+app.ConfigureHttpRequestPipeline();
 
 #region Courses Endpoints
 app.MapGet(CoursesEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext) =>
