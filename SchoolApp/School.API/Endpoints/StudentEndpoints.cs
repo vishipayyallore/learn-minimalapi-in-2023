@@ -5,7 +5,7 @@ using School.Persistence;
 
 namespace School.API.Endpoints;
 
-public static class StudentsEndpoints
+public static class StudentEndpoints
 {
     private const string RoutePrefix = "/api/Students";
 
