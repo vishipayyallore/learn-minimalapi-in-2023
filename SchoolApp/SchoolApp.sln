@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Data", "School.Data\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.ApplicationCore", "School.ApplicationCore\School.ApplicationCore.csproj", "{80B53594-A88A-4CCB-9DAA-BF5F6E70D391}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "School.Persistence", "School.Persistence\School.Persistence.csproj", "{61F676D5-3493-46AE-8092-E459DBB0E5D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "School.Persistence", "School.Persistence\School.Persistence.csproj", "{61F676D5-3493-46AE-8092-E459DBB0E5D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BB11578-FC09-4E62-BD27-BDA8C40D0EA8}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
