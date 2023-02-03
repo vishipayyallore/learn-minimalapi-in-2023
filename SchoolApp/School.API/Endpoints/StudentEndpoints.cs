@@ -58,8 +58,8 @@ public static class StudentEndpoints
             return TypedResults.NoContent();
         })
         .WithName("UpdateStudent")
-        .Produces(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound)
         .WithOpenApi();
 
         _ = group.MapDelete("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>

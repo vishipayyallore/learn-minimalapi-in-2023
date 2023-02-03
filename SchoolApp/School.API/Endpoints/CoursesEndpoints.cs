@@ -19,7 +19,8 @@ namespace School.API.Endpoints
             }).AllowAnonymous()
               .WithTags(nameof(Course))
               .WithName("GetAllCourses")
-              .Produces<List<Course>>(StatusCodes.Status200OK);
+              .Produces<List<Course>>(StatusCodes.Status200OK)
+              .WithOpenApi();
 
             _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
             {
@@ -28,7 +29,8 @@ namespace School.API.Endpoints
               .WithTags(nameof(Course))
               .WithName("GetCourseById")
               .Produces<Course>(StatusCodes.Status200OK)
-              .Produces(StatusCodes.Status404NotFound);
+              .Produces(StatusCodes.Status404NotFound)
+              .WithOpenApi();
 
             _ = routes.MapPost(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
             {
@@ -38,7 +40,8 @@ namespace School.API.Endpoints
                 return Results.Created($"{CourseEndpoints.Root}/{course.Id}", course);
             }).WithTags(nameof(Course))
               .WithName("AddCourse")
-              .Produces<Course>(StatusCodes.Status201Created);
+              .Produces<Course>(StatusCodes.Status201Created)
+              .WithOpenApi();
 
             _ = routes.MapPut(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course, Guid Id) =>
             {
@@ -54,8 +57,9 @@ namespace School.API.Endpoints
                 return Results.NoContent();
             }).WithTags(nameof(Course))
               .WithName("UpdateCourseById")
+              .Produces(StatusCodes.Status204NoContent)
               .Produces(StatusCodes.Status404NotFound)
-              .Produces(StatusCodes.Status204NoContent);
+              .WithOpenApi();
 
             _ = routes.MapDelete(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
             {
@@ -72,7 +76,8 @@ namespace School.API.Endpoints
             }).WithTags(nameof(Course))
               .WithName("DeleteCourseById")
               .Produces<Course>(StatusCodes.Status204NoContent)
-              .Produces(StatusCodes.Status404NotFound);
+              .Produces(StatusCodes.Status404NotFound)
+              .WithOpenApi();
         }
 
 
