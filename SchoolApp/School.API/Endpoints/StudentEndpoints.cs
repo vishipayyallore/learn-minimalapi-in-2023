@@ -18,6 +18,7 @@ public static class StudentEndpoints
             return await db.Students.ToListAsync();
         })
         .WithName("GetAllStudents")
+        .Produces<List<Course>>(StatusCodes.Status200OK)
         .WithOpenApi();
 
         _ = group.MapGet("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>
@@ -28,6 +29,18 @@ public static class StudentEndpoints
                     : TypedResults.NotFound();
         })
         .WithName("GetStudentById")
+        .Produces<Course>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound)
+        .WithOpenApi();
+
+        _ = group.MapPost("/", async (Student student, SchoolAppDbContext db) =>
+        {
+            db.Students.Add(student);
+            await db.SaveChangesAsync();
+            return TypedResults.Created($"/api/Student/{student.Id}", student);
+        })
+        .WithName("CreateStudent")
+        .Produces<Course>(StatusCodes.Status201Created)
         .WithOpenApi();
 
         _ = group.MapPut("/{id}", async Task<Results<NotFound, NoContent>> (Guid id, Student student, SchoolAppDbContext db) =>
@@ -45,15 +58,8 @@ public static class StudentEndpoints
             return TypedResults.NoContent();
         })
         .WithName("UpdateStudent")
-        .WithOpenApi();
-
-        _ = group.MapPost("/", async (Student student, SchoolAppDbContext db) =>
-        {
-            db.Students.Add(student);
-            await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Student/{student.Id}", student);
-        })
-        .WithName("CreateStudent")
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status204NoContent)
         .WithOpenApi();
 
         _ = group.MapDelete("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>
@@ -68,6 +74,8 @@ public static class StudentEndpoints
             return TypedResults.NotFound();
         })
         .WithName("DeleteStudent")
+        .Produces<Course>(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound)
         .WithOpenApi();
     }
 }
