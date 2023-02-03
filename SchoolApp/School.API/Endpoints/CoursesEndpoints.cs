@@ -13,7 +13,7 @@ namespace School.API.Endpoints
         public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
         {
 
-            routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext) =>
+            _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext) =>
             {
                 return Results.Ok(await schoolAppDbContext.Courses.ToListAsync());
             }).AllowAnonymous()
@@ -21,7 +21,7 @@ namespace School.API.Endpoints
               .WithName("GetAllCourses")
               .Produces<List<Course>>(StatusCodes.Status200OK);
 
-            routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
+            _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
             {
                 return await schoolAppDbContext.Courses.FindAsync(Id) is Course course ? Results.Ok(course) : Results.NotFound();
             }).AllowAnonymous()
@@ -30,7 +30,7 @@ namespace School.API.Endpoints
               .Produces<Course>(StatusCodes.Status200OK)
               .Produces(StatusCodes.Status404NotFound);
 
-            routes.MapPost(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
+            _ = routes.MapPost(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
             {
                 await schoolAppDbContext.Courses.AddAsync(course);
                 await schoolAppDbContext.SaveChangesAsync();
@@ -40,7 +40,7 @@ namespace School.API.Endpoints
               .WithName("AddCourse")
               .Produces<Course>(StatusCodes.Status201Created);
 
-            routes.MapPut(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course, Guid Id) =>
+            _ = routes.MapPut(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course, Guid Id) =>
             {
                 var courseExists = await schoolAppDbContext.Courses.AnyAsync(r => r.Id == Id);
                 if (!courseExists)
@@ -57,7 +57,7 @@ namespace School.API.Endpoints
               .Produces(StatusCodes.Status404NotFound)
               .Produces(StatusCodes.Status204NoContent);
 
-            routes.MapDelete(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
+            _ = routes.MapDelete(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
             {
                 var course = await schoolAppDbContext.Courses.FindAsync(Id);
                 if (course is null)

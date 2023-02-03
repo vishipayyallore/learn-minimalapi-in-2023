@@ -13,14 +13,14 @@ public static class StudentEndpoints
     {
         var group = routes.MapGroup(RoutePrefix).WithTags(nameof(Student));
 
-        group.MapGet("/", async (SchoolAppDbContext db) =>
+        _ = group.MapGet("/", async (SchoolAppDbContext db) =>
         {
             return await db.Students.ToListAsync();
         })
         .WithName("GetAllStudents")
         .WithOpenApi();
 
-        group.MapGet("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>
+        _ = group.MapGet("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>
         {
             return await db.Students.FindAsync(id)
                 is Student model
@@ -30,7 +30,7 @@ public static class StudentEndpoints
         .WithName("GetStudentById")
         .WithOpenApi();
 
-        group.MapPut("/{id}", async Task<Results<NotFound, NoContent>> (Guid id, Student student, SchoolAppDbContext db) =>
+        _ = group.MapPut("/{id}", async Task<Results<NotFound, NoContent>> (Guid id, Student student, SchoolAppDbContext db) =>
         {
             var foundModel = await db.Students.FindAsync(id);
 
@@ -47,7 +47,7 @@ public static class StudentEndpoints
         .WithName("UpdateStudent")
         .WithOpenApi();
 
-        group.MapPost("/", async (Student student, SchoolAppDbContext db) =>
+        _ = group.MapPost("/", async (Student student, SchoolAppDbContext db) =>
         {
             db.Students.Add(student);
             await db.SaveChangesAsync();
@@ -56,7 +56,7 @@ public static class StudentEndpoints
         .WithName("CreateStudent")
         .WithOpenApi();
 
-        group.MapDelete("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>
+        _ = group.MapDelete("/{id}", async Task<Results<Ok<Student>, NotFound>> (Guid id, SchoolAppDbContext db) =>
         {
             if (await db.Students.FindAsync(id) is Student student)
             {
