@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using School.API.Configurations;
 using School.Persistence;
 
 namespace School.API.Extensions
@@ -13,6 +14,8 @@ namespace School.API.Extensions
                 {
                     options.UseSqlServer(connectionString);
                 });
+
+            _ = services.AddAutoMapper(typeof(AutoMapperConfig));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             _ = services.AddEndpointsApiExplorer();
