@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using School.Data.Dtos;
 using School.Data.Entities;
 using School.Persistence;
 using static School.ApplicationCore.Common.Constants;
@@ -13,22 +15,27 @@ namespace School.API.Endpoints
         public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
         {
 
-            _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext) =>
+            _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper) =>
             {
-                return Results.Ok(await schoolAppDbContext.Courses.ToListAsync());
+                var coursesDto = mapper.Map<IEnumerable<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
+                return Results.Ok(coursesDto);
+
             }).AllowAnonymous()
               .WithTags(nameof(Course))
               .WithName("GetAllCourses")
-              .Produces<List<Course>>(StatusCodes.Status200OK)
+              .Produces<IEnumerable<Course>>(StatusCodes.Status200OK)
               .WithOpenApi();
 
-            _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
+            _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper, [FromRoute] Guid Id) =>
             {
-                return await schoolAppDbContext.Courses.FindAsync(Id) is Course course ? Results.Ok(course) : Results.NotFound();
+                return await schoolAppDbContext.Courses.FindAsync(Id) is Course course
+                    ? Results.Ok(mapper.Map<CourseDto>(course))
+                    : Results.NotFound();
+
             }).AllowAnonymous()
               .WithTags(nameof(Course))
               .WithName("GetCourseById")
-              .Produces<Course>(StatusCodes.Status200OK)
+              .Produces<CourseDto>(StatusCodes.Status200OK)
               .Produces(StatusCodes.Status404NotFound)
               .WithOpenApi();
 

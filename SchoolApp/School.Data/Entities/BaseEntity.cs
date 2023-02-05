@@ -1,17 +1,24 @@
-﻿namespace School.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace School.Data.Entities
 {
 
     public class BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        [Key]
+        public Guid Id { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        [Required]
+        public DateTime CreatedDate { get; set; }
 
-        public string CreatedBy { get; set; } = "Admin";
+        [Required]
+        public string? CreatedBy { get; set; }
 
-        public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
+        [Required]
+        public DateTime ModifiedDate { get; set; }
 
-        public string ModifiedBy { get; set; } = "Admin";
+        [Required]
+        public string? ModifiedBy { get; set; }
     }
 
 }
