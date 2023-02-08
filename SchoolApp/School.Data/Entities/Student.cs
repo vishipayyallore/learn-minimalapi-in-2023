@@ -12,6 +12,8 @@
         public DateTime DateofBirth { get; set; }
 
         public string? Picture { get; set; }
+
+        public List<Enrollment> Enrollments { get; set; } = new();
     }
 
 }
