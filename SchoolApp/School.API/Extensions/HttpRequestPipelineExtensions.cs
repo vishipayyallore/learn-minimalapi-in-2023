@@ -1,22 +1,20 @@
-﻿namespace School.API.Extensions
+﻿namespace School.API.Extensions;
+
+public static class HttpRequestPipelineExtensions
 {
-    public static class HttpRequestPipelineExtensions
+
+    public static WebApplication ConfigureHttpRequestPipeline(this WebApplication app)
     {
-
-        public static WebApplication ConfigureHttpRequestPipeline(this WebApplication app)
+        if (app.Environment.IsDevelopment())
         {
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseCors("AllowAll");
-
-            return app;
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
-    }
 
+        app.UseHttpsRedirection();
+
+        app.UseCors("AllowAll");
+
+        return app;
+    }
 }
