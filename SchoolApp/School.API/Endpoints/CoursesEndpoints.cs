@@ -6,88 +6,85 @@ using School.Data.Entities;
 using School.Persistence;
 using static School.ApplicationCore.Common.Constants;
 
-namespace School.API.Endpoints
+namespace School.API.Endpoints;
+
+public static class CoursesEndpoints
 {
 
-    public static class CoursesEndpoints
+    public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
     {
 
-        public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
+        _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper) =>
         {
+            var coursesDto = mapper.Map<IEnumerable<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
+            return Results.Ok(coursesDto);
 
-            _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper) =>
+        }).AllowAnonymous()
+          .WithTags(nameof(Course))
+          .WithName("GetAllCourses")
+          .Produces<IEnumerable<Course>>(StatusCodes.Status200OK)
+          .WithOpenApi();
+
+        _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper, [FromRoute] Guid Id) =>
+        {
+            return await schoolAppDbContext.Courses.FindAsync(Id) is Course course
+                ? Results.Ok(mapper.Map<CourseDto>(course))
+                : Results.NotFound();
+
+        }).AllowAnonymous()
+          .WithTags(nameof(Course))
+          .WithName("GetCourseById")
+          .Produces<CourseDto>(StatusCodes.Status200OK)
+          .Produces(StatusCodes.Status404NotFound)
+          .WithOpenApi();
+
+        _ = routes.MapPost(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
+        {
+            await schoolAppDbContext.Courses.AddAsync(course);
+            await schoolAppDbContext.SaveChangesAsync();
+
+            return Results.Created($"{CourseEndpoints.Root}/{course.Id}", course);
+        }).WithTags(nameof(Course))
+          .WithName("AddCourse")
+          .Produces<Course>(StatusCodes.Status201Created)
+          .WithOpenApi();
+
+        _ = routes.MapPut(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course, Guid Id) =>
+        {
+            var courseExists = await schoolAppDbContext.Courses.AnyAsync(r => r.Id == Id);
+            if (!courseExists)
             {
-                var coursesDto = mapper.Map<IEnumerable<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
-                return Results.Ok(coursesDto);
+                return Results.NotFound();
+            }
 
-            }).AllowAnonymous()
-              .WithTags(nameof(Course))
-              .WithName("GetAllCourses")
-              .Produces<IEnumerable<Course>>(StatusCodes.Status200OK)
-              .WithOpenApi();
+            schoolAppDbContext.Update(course);
+            await schoolAppDbContext.SaveChangesAsync();
 
-            _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper, [FromRoute] Guid Id) =>
+            return Results.NoContent();
+        }).WithTags(nameof(Course))
+          .WithName("UpdateCourseById")
+          .Produces(StatusCodes.Status204NoContent)
+          .Produces(StatusCodes.Status404NotFound)
+          .WithOpenApi();
+
+        _ = routes.MapDelete(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
+        {
+            var course = await schoolAppDbContext.Courses.FindAsync(Id);
+            if (course is null)
             {
-                return await schoolAppDbContext.Courses.FindAsync(Id) is Course course
-                    ? Results.Ok(mapper.Map<CourseDto>(course))
-                    : Results.NotFound();
+                return Results.NotFound();
+            }
 
-            }).AllowAnonymous()
-              .WithTags(nameof(Course))
-              .WithName("GetCourseById")
-              .Produces<CourseDto>(StatusCodes.Status200OK)
-              .Produces(StatusCodes.Status404NotFound)
-              .WithOpenApi();
+            schoolAppDbContext.Remove(course);
+            await schoolAppDbContext.SaveChangesAsync();
 
-            _ = routes.MapPost(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course) =>
-            {
-                await schoolAppDbContext.Courses.AddAsync(course);
-                await schoolAppDbContext.SaveChangesAsync();
-
-                return Results.Created($"{CourseEndpoints.Root}/{course.Id}", course);
-            }).WithTags(nameof(Course))
-              .WithName("AddCourse")
-              .Produces<Course>(StatusCodes.Status201Created)
-              .WithOpenApi();
-
-            _ = routes.MapPut(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromBody] Course course, Guid Id) =>
-            {
-                var courseExists = await schoolAppDbContext.Courses.AnyAsync(r => r.Id == Id);
-                if (!courseExists)
-                {
-                    return Results.NotFound();
-                }
-
-                schoolAppDbContext.Update(course);
-                await schoolAppDbContext.SaveChangesAsync();
-
-                return Results.NoContent();
-            }).WithTags(nameof(Course))
-              .WithName("UpdateCourseById")
-              .Produces(StatusCodes.Status204NoContent)
-              .Produces(StatusCodes.Status404NotFound)
-              .WithOpenApi();
-
-            _ = routes.MapDelete(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, Guid Id) =>
-            {
-                var course = await schoolAppDbContext.Courses.FindAsync(Id);
-                if (course is null)
-                {
-                    return Results.NotFound();
-                }
-
-                schoolAppDbContext.Remove(course);
-                await schoolAppDbContext.SaveChangesAsync();
-
-                return Results.NoContent();
-            }).WithTags(nameof(Course))
-              .WithName("DeleteCourseById")
-              .Produces<Course>(StatusCodes.Status204NoContent)
-              .Produces(StatusCodes.Status404NotFound)
-              .WithOpenApi();
-        }
-
-
+            return Results.NoContent();
+        }).WithTags(nameof(Course))
+          .WithName("DeleteCourseById")
+          .Produces<Course>(StatusCodes.Status204NoContent)
+          .Produces(StatusCodes.Status404NotFound)
+          .WithOpenApi();
     }
+
 
 }
