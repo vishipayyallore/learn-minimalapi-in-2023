@@ -1,32 +1,29 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using School.Data.Entities;
-using School.Data.SeedData;
+using School.Persistence.SeedData;
 
-namespace School.Persistence
+namespace School.Persistence;
+
+public class SchoolAppDbContext : IdentityDbContext
 {
+    public DbSet<Course> Courses => Set<Course>();
 
-    public class SchoolAppDbContext : IdentityDbContext
+    public DbSet<Student> Students => Set<Student>();
+
+    public DbSet<Enrollment> Enrollments => Set<Enrollment>();
+
+    public SchoolAppDbContext(DbContextOptions<SchoolAppDbContext> options) : base(options)
     {
-        public SchoolAppDbContext(DbContextOptions<SchoolAppDbContext> options) : base(options)
-        {
-        }
+    }
 
-        public DbSet<Course> Courses => Set<Course>();
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
 
-        public DbSet<Student> Students => Set<Student>();
+        _ = builder.ApplyConfiguration(new CourseData());
 
-        public DbSet<Enrollment> Enrollments => Set<Enrollment>();
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.ApplyConfiguration(new CourseData());
-
-            builder.ApplyConfiguration(new UserRoleData());
-        }
-
+        _ = builder.ApplyConfiguration(new UserRoleData());
     }
 
 }
