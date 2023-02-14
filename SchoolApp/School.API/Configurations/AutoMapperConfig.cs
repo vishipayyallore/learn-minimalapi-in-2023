@@ -1,8 +1,4 @@
-﻿// using AutoMapper;
-//using School.Data.Dtos;
-//using School.Data.Entities;
-
-namespace School.API.Configurations;
+﻿namespace School.API.Configurations;
 
 public class AutoMapperConfig : Profile
 {
@@ -20,7 +16,5 @@ public class AutoMapperConfig : Profile
 
         _ = CreateMap<Enrollment, CreateEnrollmentDto>().ReverseMap();
         _ = CreateMap<Enrollment, EnrollmentDto>().ReverseMap();
-
-        ////CreateMap<RegisterDto, SchoolUser>().ReverseMap();
     }
 }
