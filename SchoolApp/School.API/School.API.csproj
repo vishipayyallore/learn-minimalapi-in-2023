@@ -24,4 +24,8 @@
     <ProjectReference Include="..\School.Persistence\School.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="School.ApplicationCore.Common.Constants" Static="true" />
+  </ItemGroup>
+
 </Project>

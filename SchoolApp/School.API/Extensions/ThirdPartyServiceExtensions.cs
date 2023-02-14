@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// using Microsoft.EntityFrameworkCore;
 using School.API.Configurations;
 using School.Persistence;
 
