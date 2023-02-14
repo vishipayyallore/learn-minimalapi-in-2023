@@ -15,9 +15,9 @@ internal class CourseData : IEntityTypeConfiguration<Course>
                 Id = Guid.NewGuid(),
                 Title = "Minimal API Development",
                 Credits = 3,
-                CreatedDate = DateTime.UtcNow,
+                CreatedDate = DateTimeOffset.UtcNow,
                 CreatedBy = "Admin",
-                ModifiedDate = DateTime.UtcNow,
+                ModifiedDate = DateTimeOffset.UtcNow,
                 ModifiedBy = "Admin"
             },
             new
@@ -25,9 +25,9 @@ internal class CourseData : IEntityTypeConfiguration<Course>
                 Id = Guid.NewGuid(),
                 Title = "Ultimate API Development",
                 Credits = 5,
-                CreatedDate = DateTime.UtcNow,
+                CreatedDate = DateTimeOffset.UtcNow,
                 CreatedBy = "Admin",
-                ModifiedDate = DateTime.UtcNow,
+                ModifiedDate = DateTimeOffset.UtcNow,
                 ModifiedBy = "Admin"
             }
         );
