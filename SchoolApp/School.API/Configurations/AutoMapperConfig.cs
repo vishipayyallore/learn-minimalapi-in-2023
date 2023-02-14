@@ -8,8 +8,8 @@ public class AutoMapperConfig : Profile
 {
     public AutoMapperConfig()
     {
-        _ = CreateMap<Course, CourseDto>().ReverseMap();
         _ = CreateMap<Course, CreateCourseDto>().ReverseMap();
+        _ = CreateMap<Course, CourseDto>().ReverseMap();
         _ = CreateMap<Course, CourseDetailsDto>()
             .ForMember(q => q.Students, x => x.MapFrom(course => course.Enrollments.Select(stu => stu.Student)));
 
