@@ -16,13 +16,13 @@ public static class CoursesEndpoints
 
         _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper) =>
         {
-            var coursesDto = mapper.Map<IEnumerable<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
+            var coursesDto = mapper.Map<IReadOnlyCollection<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
             return Results.Ok(coursesDto);
 
         }).AllowAnonymous()
           .WithTags(nameof(Course))
           .WithName("GetAllCourses")
-          .Produces<IEnumerable<Course>>(StatusCodes.Status200OK)
+          .Produces<IReadOnlyCollection<Course>>(StatusCodes.Status200OK)
           .WithOpenApi();
 
         _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper, [FromRoute] Guid Id) =>
