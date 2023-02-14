@@ -2,8 +2,8 @@
 
 public class EnrollmentDto : CreateEnrollmentDto
 {
-    public virtual CourseDto Course { get; set; }
-    public virtual StudentDto Student { get; set; }
+    public virtual CourseDto? Course { get; set; }
+    public virtual StudentDto? Student { get; set; }
 }
 
 //public class EnrollmentDtoValidator : AbstractValidator<EnrollmentDto>
