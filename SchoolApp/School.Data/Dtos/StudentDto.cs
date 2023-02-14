@@ -1,19 +1,16 @@
 ﻿using FluentValidation;
 
-namespace School.Data.Dtos
+namespace School.Data.Dtos;
+
+public class StudentDto : CreateStudentDto
 {
+    public Guid Id { get; set; }
+}
 
-    public class StudentDto : CreateStudentDto
+public class StudentDtoValidator : AbstractValidator<StudentDto>
+{
+    public StudentDtoValidator()
     {
-        public Guid Id { get; set; }
+        Include(new CreateStudentDtoValidator());
     }
-
-    public class StudentDtoValidator : AbstractValidator<StudentDto>
-    {
-        public StudentDtoValidator()
-        {
-            Include(new CreateStudentDtoValidator());
-        }
-    }
-
 }
