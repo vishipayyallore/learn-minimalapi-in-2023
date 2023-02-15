@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using School.API.Configurations;
+﻿using School.API.Configurations;
 using School.Persistence;
 
 namespace School.API.Extensions;

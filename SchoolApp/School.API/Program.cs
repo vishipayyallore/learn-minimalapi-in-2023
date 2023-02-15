@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using School.API.Endpoints;
+﻿using School.API.Endpoints;
 using School.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

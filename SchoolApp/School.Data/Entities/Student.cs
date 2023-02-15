@@ -8,7 +8,7 @@ public class Student : BaseEntity
 
     public string? LastName { get; set; }
 
-    public DateTime DateofBirth { get; set; }
+    public DateTimeOffset DateofBirth { get; set; }
 
     public string? Picture { get; set; }
 

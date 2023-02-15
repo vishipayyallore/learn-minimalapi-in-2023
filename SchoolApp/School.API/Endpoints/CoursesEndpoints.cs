@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using School.Data.Dtos;
-using School.Data.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using School.Persistence;
-using static School.ApplicationCore.Common.Constants;
 
 namespace School.API.Endpoints;
 
@@ -13,16 +8,15 @@ public static class CoursesEndpoints
 
     public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
     {
-
         _ = routes.MapGet(CourseEndpoints.Root, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper) =>
         {
-            var coursesDto = mapper.Map<IEnumerable<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
+            var coursesDto = mapper.Map<IReadOnlyCollection<CourseDto>>(await schoolAppDbContext.Courses.ToListAsync());
             return Results.Ok(coursesDto);
 
         }).AllowAnonymous()
           .WithTags(nameof(Course))
           .WithName("GetAllCourses")
-          .Produces<IEnumerable<Course>>(StatusCodes.Status200OK)
+          .Produces<IReadOnlyCollection<Course>>(StatusCodes.Status200OK)
           .WithOpenApi();
 
         _ = routes.MapGet(CourseEndpoints.ActionById, async ([FromServices] SchoolAppDbContext schoolAppDbContext, [FromServices] IMapper mapper, [FromRoute] Guid Id) =>
@@ -85,6 +79,5 @@ public static class CoursesEndpoints
           .Produces(StatusCodes.Status404NotFound)
           .WithOpenApi();
     }
-
 
 }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using School.Data.Entities;
 using School.Persistence;
 
 namespace School.API.Endpoints;
