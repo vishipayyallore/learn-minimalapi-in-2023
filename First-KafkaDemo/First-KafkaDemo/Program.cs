@@ -31,20 +31,23 @@ app.MapPost("/send-message-to-kafka", async (HttpContext http) =>
         messageToKafka = await sr.ReadToEndAsync();
     }
 
+    if (string.IsNullOrWhiteSpace(messageToKafka))
+    {
+        throw new InvalidDataException("Must have a message body");
+    }
+
     var producerService = http.RequestServices.GetRequiredService<IProducerService>();
+
     await producerService.SetTopic(ProducerTopic!);
 
     try
     {
-        if (messageToKafka is null)
-        {
-            throw new InvalidDataException("Must have a message body");
-        }
         await producerService.Send(messageToKafka);
     }
     catch (Exception ex)
     {
         await http.Response.BodyWriter.WriteAsync(System.Text.Encoding.ASCII.GetBytes(ex.Message));
+
         http.Response.StatusCode = 500;
     }
 
