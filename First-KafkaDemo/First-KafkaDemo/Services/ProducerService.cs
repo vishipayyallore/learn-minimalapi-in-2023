@@ -29,7 +29,11 @@ public class ProducerService : IProducerService
         {
             var messagePacket = new Message<int, string>() { Key = 1, Value = message };
 
+            _logger.LogInformation($"Sending Message: {messagePacket}");
+
             _producer.ProduceAsync(Topic, messagePacket, CancellationToken.None);
+
+            _logger.LogInformation($"Message: {messagePacket} Sent!");
         });
     }
 

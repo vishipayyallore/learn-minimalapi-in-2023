@@ -9,7 +9,6 @@ var producerConfig = new ProducerConfig();
 var ProducerTopic = builder.Configuration.GetValue<string>("Topic");
 builder.Configuration.Bind("ProducerConfig", producerConfig);
 builder.Services.AddSingleton<ProducerConfig>(producerConfig);
-// builder.Services.AddSingleton(ProducerTopic);
 
 builder.Services.AddScoped<IProducerService, ProducerService>();
 
