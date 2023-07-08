@@ -9,5 +9,5 @@ I am learning Minimal API from different Video Courses, Websites, and books
 > 1. Open the Package Manager Console and execute the below mentioned command.
 
 ```bash
-dotnet ef migrations add InitialVersion
+dotnet ef migrations add InitialVersion --project ./StudentEnrollment.Data/StudentEnrollment.Data.csproj --startup-project ./StudentEnrollment.Api/StudentEnrollment.Api.csproj
 ```
