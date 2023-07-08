@@ -3,12 +3,10 @@ using StudentEnrollment.Data.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-const string corsPolicyName = "AllowAll";
-var connectionString = builder.Configuration.GetConnectionString("StudentEnrollmentDbConnection");
-
 // Add services to the container.
 builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
 {
+    const string connectionString = "name=StudentEnrollmentDbConnection"; /* This will also read from appsettings.json */
     _ = options.UseSqlServer(connectionString);
 });
 
@@ -16,6 +14,8 @@ builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+const string corsPolicyName = "AllowAll";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(corsPolicyName, policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
