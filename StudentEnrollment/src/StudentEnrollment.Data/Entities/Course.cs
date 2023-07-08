@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace StudentEnrollment.Data.Entities;
 
-namespace StudentEnrollment.Data.Entities
+public class Course : BaseEntity
 {
-    internal class Course
-    {
-    }
+    public string? Title { get; set; }
+
+    public int Credits { get; set; }
+
+    public List<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 }
