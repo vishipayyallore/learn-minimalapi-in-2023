@@ -8,14 +8,16 @@ internal class CourseSeedDataConfiguration : IEntityTypeConfiguration<Course>
 {
     public void Configure(EntityTypeBuilder<Course> builder)
     {
-        builder.HasData(
+        _ = builder.HasData(
             new Course
             {
                 Id = 1,
                 Title = "Minimal API Development",
                 Credits = 3,
                 CreatedBy = "Admin",
-                ModifiedBy = "Admin"
+                CreatedDate = DateTime.Now,
+                ModifiedBy = "Admin",
+                ModifiedDate = DateTime.Now
             },
             new Course
             {
@@ -23,7 +25,9 @@ internal class CourseSeedDataConfiguration : IEntityTypeConfiguration<Course>
                 Title = "Ultimate API Development",
                 Credits = 5,
                 CreatedBy = "Admin",
-                ModifiedBy = "Admin"
+                CreatedDate = DateTime.Now,
+                ModifiedBy = "Admin",
+                ModifiedDate = DateTime.Now
             }
         );
     }

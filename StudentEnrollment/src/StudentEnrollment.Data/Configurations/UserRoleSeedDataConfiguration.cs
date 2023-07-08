@@ -8,7 +8,7 @@ internal class UserRoleSeedDataConfiguration : IEntityTypeConfiguration<Identity
 {
     public void Configure(EntityTypeBuilder<IdentityRole> builder)
     {
-        builder.HasData(
+        _ = builder.HasData(
             new IdentityRole
             {
                 Name = "Administrator",
