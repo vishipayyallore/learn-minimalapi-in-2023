@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StudentEnrollment.Data.Configurations;
 
-internal class UserRoleConfiguration : IEntityTypeConfiguration<IdentityRole>
+internal class UserRoleSeedDataConfiguration : IEntityTypeConfiguration<IdentityRole>
 {
     public void Configure(EntityTypeBuilder<IdentityRole> builder)
     {

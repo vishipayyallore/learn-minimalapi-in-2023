@@ -15,9 +15,9 @@ public class StudentEnrollmentDbContext : IdentityDbContext
     {
         base.OnModelCreating(builder);
 
-        _ = builder.ApplyConfiguration(new CourseConfiguration());
+        _ = builder.ApplyConfiguration(new CourseSeedDataConfiguration());
 
-        _ = builder.ApplyConfiguration(new UserRoleConfiguration());
+        _ = builder.ApplyConfiguration(new UserRoleSeedDataConfiguration());
     }
 
     public DbSet<Course> Courses => Set<Course>();

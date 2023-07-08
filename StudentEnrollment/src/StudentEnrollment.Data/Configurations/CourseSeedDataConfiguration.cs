@@ -4,7 +4,7 @@ using StudentEnrollment.Data.Entities;
 
 namespace StudentEnrollment.Data.Configurations;
 
-internal class CourseConfiguration : IEntityTypeConfiguration<Course>
+internal class CourseSeedDataConfiguration : IEntityTypeConfiguration<Course>
 {
     public void Configure(EntityTypeBuilder<Course> builder)
     {
