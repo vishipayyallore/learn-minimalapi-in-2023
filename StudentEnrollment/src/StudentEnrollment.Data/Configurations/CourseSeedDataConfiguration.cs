@@ -13,13 +13,17 @@ internal class CourseSeedDataConfiguration : IEntityTypeConfiguration<Course>
             {
                 Id = 1,
                 Title = "Minimal API Development",
-                Credits = 3
+                Credits = 3,
+                CreatedBy = "Admin",
+                ModifiedBy = "Admin"
             },
             new Course
             {
                 Id = 2,
                 Title = "Ultimate API Development",
-                Credits = 5
+                Credits = 5,
+                CreatedBy = "Admin",
+                ModifiedBy = "Admin"
             }
         );
     }
