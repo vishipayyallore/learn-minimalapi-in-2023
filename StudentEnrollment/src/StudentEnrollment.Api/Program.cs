@@ -1,8 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 const string corsPolicyName = "AllowAll";
+var connectionString = builder.Configuration.GetConnectionString("StudentEnrollmentDbConnection");
 
 // Add services to the container.
+builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
+{
+    _ = options.UseSqlServer(connectionString);
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
