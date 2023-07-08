@@ -19,9 +19,11 @@ public class StudentEnrollmentDbContext : IdentityDbContext
         //builder.ApplyConfiguration(new UserRoleConfiguration());
     }
 
-    public DbSet<Course> Courses { get; set; }
-    public DbSet<Student> Students { get; set; }
-    public DbSet<Enrollment> Enrollments { get; set; }
+    public DbSet<Course> Courses => Set<Course>();
+
+    public DbSet<Student> Students => Set<Student>();
+
+    public DbSet<Enrollment> Enrollments => Set<Enrollment>();
 }
 
 //public class StudentEnrollmentDbContextFactory : IDesignTimeDbContextFactory<StudentEnrollmentDbContext>
