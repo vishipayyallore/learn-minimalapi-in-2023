@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Configurations;
 using StudentEnrollment.Data.Entities;
 
 namespace StudentEnrollment.Data.Persistence;
@@ -8,6 +9,15 @@ public class StudentEnrollmentDbContext : IdentityDbContext
 {
     public StudentEnrollmentDbContext(DbContextOptions<StudentEnrollmentDbContext> options) : base(options)
     {
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        _ = builder.ApplyConfiguration(new CourseConfiguration());
+
+        _ = builder.ApplyConfiguration(new UserRoleConfiguration());
     }
 
     public DbSet<Course> Courses => Set<Course>();
