@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StudentEnrollment.Api;
+using StudentEnrollment.Api.EndPoints;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 
@@ -95,6 +95,10 @@ app.MapDelete("/api/courses/{id}", async ([FromServices] StudentEnrollmentDbCont
 });
 
 app.MapStudentEndpoints();
+
+app.MapCourseEndpoints();
+
+app.MapEnrollmentEndpoints();
 
 app.Run();
 

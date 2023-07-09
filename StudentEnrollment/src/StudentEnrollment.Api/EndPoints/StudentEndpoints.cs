@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
-namespace StudentEnrollment.Api;
+namespace StudentEnrollment.Api.EndPoints;
 
 public static class StudentEndpoints
 {
