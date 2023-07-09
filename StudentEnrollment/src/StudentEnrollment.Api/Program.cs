@@ -45,8 +45,47 @@ app.MapGet("/api/courses", async ([FromServices] StudentEnrollmentDbContext stud
 app.MapGet("/api/courses/{id}", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext, [FromQuery] int id) =>
 {
     // "is" Pattern Matching
-    return await studentEnrollmentDbContext.Courses.FindAsync(id) is Course course 
+    return await studentEnrollmentDbContext.Courses.FindAsync(id) is Course course
                 ? Results.Ok(course) : Results.NotFound();
+});
+
+app.MapPost("/api/courses", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext, [FromBody] Course course) =>
+{
+    await studentEnrollmentDbContext.Courses.AddAsync(course);
+
+    await studentEnrollmentDbContext.SaveChangesAsync();
+
+    return Results.Created($"/api/courses/{course.Id}", course);
+});
+
+app.MapPut("/api/courses/{id}", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext, [FromQuery] int id, [FromBody] Course course) =>
+{
+    var courseExists = await studentEnrollmentDbContext.Courses.AnyAsync(r => r.Id == id);
+    if (!courseExists)
+    {
+        return Results.NotFound();
+    }
+
+    studentEnrollmentDbContext.Courses.Update(course);
+
+    await studentEnrollmentDbContext.SaveChangesAsync();
+
+    return Results.NoContent();
+});
+
+app.MapDelete("/api/courses/{id}", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext, [FromQuery] int id) =>
+{
+    var existingCourse = await studentEnrollmentDbContext.Courses.FindAsync(id);
+
+    if (existingCourse is null)
+    {
+        return Results.NotFound();
+    }
+
+    studentEnrollmentDbContext.Courses.Remove(existingCourse);
+    await studentEnrollmentDbContext.SaveChangesAsync();
+
+    return Results.NoContent();
 });
 
 app.Run();
