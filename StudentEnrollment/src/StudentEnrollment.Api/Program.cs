@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,6 +40,13 @@ app.UseHttpsRedirection();
 app.MapGet("/api/courses", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext) =>
 {
     return await studentEnrollmentDbContext.Courses.ToListAsync();
+});
+
+app.MapGet("/api/courses/{id}", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext, [FromQuery] int id) =>
+{
+    // "is" Pattern Matching
+    return await studentEnrollmentDbContext.Courses.FindAsync(id) is Course course 
+                ? Results.Ok(course) : Results.NotFound();
 });
 
 app.Run();
