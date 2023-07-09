@@ -7,9 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26B289EA-13A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{247BC100-839D-43D6-A582-C350405BFA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrollment.Api", "src\StudentEnrollment.Api\StudentEnrollment.Api.csproj", "{94D9FFF7-5064-4D74-8E9A-B44F18058D90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentEnrollment.Api", "src\StudentEnrollment.Api\StudentEnrollment.Api.csproj", "{94D9FFF7-5064-4D74-8E9A-B44F18058D90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrollment.Data", "src\StudentEnrollment.Data\StudentEnrollment.Data.csproj", "{E75C9C21-4C1D-43C8-92B3-CBC3BF5C0753}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentEnrollment.Data", "src\StudentEnrollment.Data\StudentEnrollment.Data.csproj", "{E75C9C21-4C1D-43C8-92B3-CBC3BF5C0753}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0AE82D1-F3A8-4A03-A33E-1649596B6557}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

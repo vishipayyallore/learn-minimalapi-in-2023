@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Configurations;
 using StudentEnrollment.Data.Entities;
 
 namespace StudentEnrollment.Data.Persistence;
@@ -13,10 +14,10 @@ public class StudentEnrollmentDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        //builder.ApplyConfiguration(new CourseConfiguration());
-        //builder.ApplyConfiguration(new RoleConfiguration());
-        //builder.ApplyConfiguration(new SchoolUserConfiguration());
-        //builder.ApplyConfiguration(new UserRoleConfiguration());
+
+        _ = builder.ApplyConfiguration(new CourseSeedDataConfiguration());
+
+        _ = builder.ApplyConfiguration(new UserRoleSeedDataConfiguration());
     }
 
     public DbSet<Course> Courses => Set<Course>();
@@ -25,24 +26,3 @@ public class StudentEnrollmentDbContext : IdentityDbContext
 
     public DbSet<Enrollment> Enrollments => Set<Enrollment>();
 }
-
-//public class StudentEnrollmentDbContextFactory : IDesignTimeDbContextFactory<StudentEnrollmentDbContext>
-//{
-//    public StudentEnrollmentDbContext CreateDbContext(string[] args)
-//    {
-//        // Get environment
-//        //string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-//        // Build config
-//        IConfiguration config = new ConfigurationBuilder()
-//            .SetBasePath(Directory.GetCurrentDirectory())
-//            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-//            .Build();
-
-//        // Get connection string
-//        var optionsBuilder = new DbContextOptionsBuilder<StudentEnrollmentDbContext>();
-//        var connectionString = config.GetConnectionString("StudentEnrollmentDbConnection");
-//        optionsBuilder.UseSqlServer(connectionString);
-//        return new StudentEnrollmentDbContext(optionsBuilder.Options);
-//    }
-//}
