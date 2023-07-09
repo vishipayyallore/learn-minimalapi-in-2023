@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Api;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 
@@ -33,6 +34,12 @@ if (app.Environment.IsDevelopment())
 
     _ = app.UseCors(corsPolicyName);
 }
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+};
 
 app.UseHttpsRedirection();
 
@@ -86,6 +93,8 @@ app.MapDelete("/api/courses/{id}", async ([FromServices] StudentEnrollmentDbCont
 
     return Results.NoContent();
 });
+
+app.MapStudentEndpoints();
 
 app.Run();
 
