@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="PostmanCollections\**" />
     <Content Remove="PostmanCollections\**" />
     <EmbeddedResource Remove="PostmanCollections\**" />
@@ -22,5 +33,5 @@
     <ProjectReference Include="..\College.Persistence\College.Persistence.csproj" />
     <ProjectReference Include="..\College.Repositories\College.Repositories.csproj" />
   </ItemGroup>
-  
+
 </Project>
