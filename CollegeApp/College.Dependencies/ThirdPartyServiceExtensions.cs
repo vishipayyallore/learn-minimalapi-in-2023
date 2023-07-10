@@ -12,7 +12,7 @@ namespace College.Dependencies
         public static IServiceCollection AddThirdPartyServices(this IServiceCollection services)
         {
             _ = services.AddDbContext<CollegeDbContext>(options =>
-                options.UseInMemoryDatabase("CollegeDatabase"));
+                options.UseSqlServer("Name=CollegeDbConnectionString"));
 
             _ = services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
