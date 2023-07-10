@@ -7,9 +7,10 @@ using StudentEnrollment.Data.Persistence;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("StudentEnrollmentDbConnection");
 builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
 {
-    const string connectionString = "name=StudentEnrollmentDbConnection"; /* This will also read from appsettings.json */
+    // const string connectionString = "name=StudentEnrollmentDbConnection"; /* This will also read from appsettings.json */
     _ = options.UseSqlServer(connectionString);
 });
 
