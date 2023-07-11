@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace College.Persistence.Migrations
 {
     [DbContext(typeof(CollegeDbContext))]
-    [Migration("20230710153316_InitialVersion")]
+    [Migration("20230710165844_InitialVersion")]
     partial class InitialVersion
     {
         /// <inheritdoc />
@@ -67,24 +67,24 @@ namespace College.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d022754a-4bca-476f-a3f5-4875d25bd2cd"),
+                            Id = new Guid("e0f35ed0-6dcf-42e4-b952-f56c8c883c18"),
                             CourseType = 1,
                             CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(4996),
+                            CreatedDate = new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7144),
                             Duration = 1,
                             ModifiedBy = "Admin",
-                            ModifiedDate = new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(5010),
+                            ModifiedDate = new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7158),
                             Name = "Minimal API Development"
                         },
                         new
                         {
-                            Id = new Guid("8b2c08e2-a9d7-4a70-961d-4860cb843c43"),
+                            Id = new Guid("2f919a8b-ceb6-4123-86cc-6fb18ce10ca1"),
                             CourseType = 2,
                             CreatedBy = "Admin",
-                            CreatedDate = new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(5018),
+                            CreatedDate = new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7167),
                             Duration = 4,
                             ModifiedBy = "Admin",
-                            ModifiedDate = new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(5019),
+                            ModifiedDate = new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7168),
                             Name = "Ultimate API Development"
                         });
                 });
