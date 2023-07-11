@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -38,8 +37,8 @@ namespace College.Persistence.Migrations
                 columns: new[] { "Id", "CourseId", "CourseType", "CreatedBy", "CreatedDate", "Description", "Duration", "ModifiedBy", "ModifiedDate", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("2f919a8b-ceb6-4123-86cc-6fb18ce10ca1"), null, 2, "Admin", new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7167), null, 4, "Admin", new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7168), "Ultimate API Development" },
-                    { new Guid("e0f35ed0-6dcf-42e4-b952-f56c8c883c18"), null, 1, "Admin", new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7144), null, 1, "Admin", new DateTime(2023, 7, 10, 22, 28, 44, 95, DateTimeKind.Local).AddTicks(7158), "Minimal API Development" }
+                    { new Guid("1bcc881d-e707-4273-9138-e16bb3e493a7"), "A101", 1, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9732), "Description - Minimal API Development", 1, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9742), "Minimal API Development" },
+                    { new Guid("c80f1a16-e1f4-40d3-94f1-f93a23cc8091"), "A101", 2, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9747), "Description - Minimal API Development", 4, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9748), "Ultimate API Development" }
                 });
         }
 
