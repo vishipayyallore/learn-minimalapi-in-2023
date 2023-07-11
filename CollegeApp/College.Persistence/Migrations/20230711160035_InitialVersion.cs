@@ -37,8 +37,8 @@ namespace College.Persistence.Migrations
                 columns: new[] { "Id", "CourseId", "CourseType", "CreatedBy", "CreatedDate", "Description", "Duration", "ModifiedBy", "ModifiedDate", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("1bcc881d-e707-4273-9138-e16bb3e493a7"), "A101", 1, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9732), "Description - Minimal API Development", 1, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9742), "Minimal API Development" },
-                    { new Guid("c80f1a16-e1f4-40d3-94f1-f93a23cc8091"), "A101", 2, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9747), "Description - Minimal API Development", 4, "Admin", new DateTime(2023, 7, 11, 21, 27, 55, 74, DateTimeKind.Local).AddTicks(9748), "Ultimate API Development" }
+                    { new Guid("5e181656-2233-46f6-ab5e-ac5229e6244d"), "A102", 2, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4555), "Description - Ultimate API Development", 4, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4556), "Ultimate API Development" },
+                    { new Guid("d4bc7d3f-261c-4cec-ad8b-cabf4cb3174d"), "A101", 1, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4523), "Description - Minimal API Development", 1, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4547), "Minimal API Development" }
                 });
         }
 

@@ -26,8 +26,8 @@ internal class CourseSeedData : IEntityTypeConfiguration<Course>
             {
                 Id = Guid.NewGuid(),
                 Name = "Ultimate API Development",
-                CourseId = "A101",
-                Description = "Description - Minimal API Development",
+                CourseId = "A102",
+                Description = "Description - Ultimate API Development",
                 Duration = 4,
                 CourseType = 2,
                 CreatedBy = "Admin",
