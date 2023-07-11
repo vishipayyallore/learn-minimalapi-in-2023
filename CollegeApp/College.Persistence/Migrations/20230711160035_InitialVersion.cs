@@ -37,8 +37,8 @@ namespace College.Persistence.Migrations
                 columns: new[] { "Id", "CourseId", "CourseType", "CreatedBy", "CreatedDate", "Description", "Duration", "ModifiedBy", "ModifiedDate", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("8b2c08e2-a9d7-4a70-961d-4860cb843c43"), null, 2, "Admin", new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(5018), null, 4, "Admin", new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(5019), "Ultimate API Development" },
-                    { new Guid("d022754a-4bca-476f-a3f5-4875d25bd2cd"), null, 1, "Admin", new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(4996), null, 1, "Admin", new DateTime(2023, 7, 10, 21, 3, 16, 787, DateTimeKind.Local).AddTicks(5010), "Minimal API Development" }
+                    { new Guid("5e181656-2233-46f6-ab5e-ac5229e6244d"), "A102", 2, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4555), "Description - Ultimate API Development", 4, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4556), "Ultimate API Development" },
+                    { new Guid("d4bc7d3f-261c-4cec-ad8b-cabf4cb3174d"), "A101", 1, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4523), "Description - Minimal API Development", 1, "Admin", new DateTime(2023, 7, 11, 21, 30, 35, 835, DateTimeKind.Local).AddTicks(4547), "Minimal API Development" }
                 });
         }
 
