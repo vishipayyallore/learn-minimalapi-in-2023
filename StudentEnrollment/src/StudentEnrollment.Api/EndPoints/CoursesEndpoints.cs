@@ -4,7 +4,7 @@ using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 namespace StudentEnrollment.Api.EndPoints;
 
-public static class CourseEndpoints
+public static class CoursesEndpoints
 {
     public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
     {
