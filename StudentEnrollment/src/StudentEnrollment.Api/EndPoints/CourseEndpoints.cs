@@ -8,7 +8,7 @@ public static class CourseEndpoints
 {
     public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Course").WithTags(nameof(Course));
+        var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
 
         group.MapGet("/", async (StudentEnrollmentDbContext db) =>
         {

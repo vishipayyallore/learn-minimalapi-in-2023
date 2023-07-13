@@ -8,7 +8,7 @@ public static class EnrollmentEndpoints
 {
     public static void MapEnrollmentEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Enrollment").WithTags(nameof(Enrollment));
+        var group = routes.MapGroup("/api/Enrollments").WithTags(nameof(Enrollment));
 
         group.MapGet("/", async (StudentEnrollmentDbContext db) =>
         {
