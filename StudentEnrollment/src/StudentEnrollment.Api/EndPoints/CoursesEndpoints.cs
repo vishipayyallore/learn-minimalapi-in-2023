@@ -7,11 +7,11 @@ namespace StudentEnrollment.Api.EndPoints;
 
 public static class CoursesEndpoints
 {
-    public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapCoursesEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
 
-        _ = group.MapGet("/api/courses", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext) =>
+        _ = group.MapGet("/", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext) =>
         {
             return await studentEnrollmentDbContext.Courses.ToListAsync();
         })

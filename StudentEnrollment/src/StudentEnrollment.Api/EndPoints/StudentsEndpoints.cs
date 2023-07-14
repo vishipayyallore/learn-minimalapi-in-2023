@@ -6,7 +6,7 @@ namespace StudentEnrollment.Api.EndPoints;
 
 public static class StudentsEndpoints
 {
-    public static void MapStudentEndpoints(this IEndpointRouteBuilder routes)
+    public static void MapStudentsEndpoints(this IEndpointRouteBuilder routes)
     {
         var group = routes.MapGroup("/api/Students").WithTags(nameof(Student));
 
