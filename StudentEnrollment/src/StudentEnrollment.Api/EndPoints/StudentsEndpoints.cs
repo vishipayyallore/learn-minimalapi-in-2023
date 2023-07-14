@@ -4,11 +4,11 @@ using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 namespace StudentEnrollment.Api.EndPoints;
 
-public static class StudentEndpoints
+public static class StudentsEndpoints
 {
     public static void MapStudentEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Student").WithTags(nameof(Student));
+        var group = routes.MapGroup("/api/Students").WithTags(nameof(Student));
 
         group.MapGet("/", async (StudentEnrollmentDbContext db) =>
         {

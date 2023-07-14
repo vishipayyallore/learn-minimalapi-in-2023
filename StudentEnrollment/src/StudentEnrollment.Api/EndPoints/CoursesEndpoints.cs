@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 namespace StudentEnrollment.Api.EndPoints;
 
-public static class CourseEndpoints
+public static class CoursesEndpoints
 {
     public static void MapCourseEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Course").WithTags(nameof(Course));
+        var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
 
-        group.MapGet("/", async (StudentEnrollmentDbContext db) =>
+        _ = group.MapGet("/api/courses", async ([FromServices] StudentEnrollmentDbContext studentEnrollmentDbContext) =>
         {
-            return await db.Courses.ToListAsync();
+            return await studentEnrollmentDbContext.Courses.ToListAsync();
         })
         .WithName("GetAllCourses")
         .WithOpenApi();
