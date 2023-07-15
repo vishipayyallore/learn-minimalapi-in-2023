@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Dtos.Course;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 namespace StudentEnrollment.Api.EndPoints;
@@ -11,12 +13,12 @@ public static class CoursesEndpoints
     {
         var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
 
-        _ = group.MapGet("/", async Task<IReadOnlyCollection<Course>> ([FromServices] StudentEnrollmentDbContext db) =>
+        _ = group.MapGet("/", async Task<IReadOnlyCollection<CourseDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
         {
-            return await db.Courses.ToListAsync();
+            return mapper.Map<IReadOnlyCollection<CourseDto>>(await db.Courses.ToListAsync());
         })
         .WithName("GetAllCourses")
-        .Produces<IReadOnlyCollection<Course>>(StatusCodes.Status200OK)
+        .Produces<IReadOnlyCollection<CourseDto>>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
@@ -26,7 +28,7 @@ public static class CoursesEndpoints
                             is Course model ? TypedResults.Ok(model) : TypedResults.NotFound();
         })
         .WithName("GetCourseById")
-        .Produces<Course>(StatusCodes.Status200OK)
+        .Produces<CourseDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();

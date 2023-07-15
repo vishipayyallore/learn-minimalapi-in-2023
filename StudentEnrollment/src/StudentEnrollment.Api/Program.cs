@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Api.Configurations;
 using StudentEnrollment.Api.EndPoints;
 using StudentEnrollment.Data.Persistence;
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
     // const string connectionString = "name=StudentEnrollmentDbConnection"; /* This will also read from appsettings.json */
     _ = options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
