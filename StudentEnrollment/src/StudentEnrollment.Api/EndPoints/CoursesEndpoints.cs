@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Data.Dtos.Course;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
+
 namespace StudentEnrollment.Api.EndPoints;
 
 public static class CoursesEndpoints
@@ -22,10 +23,10 @@ public static class CoursesEndpoints
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
-        _ = group.MapGet("/{id}", async Task<Results<Ok<Course>, NotFound>> (int id, StudentEnrollmentDbContext db) =>
+        _ = group.MapGet("/{id}", async Task<Results<Ok<CourseDto>, NotFound>> (int id, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
         {
             return await db.Courses.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
-                            is Course model ? TypedResults.Ok(model) : TypedResults.NotFound();
+                            is Course model ? TypedResults.Ok(mapper.Map<CourseDto>(model)) : TypedResults.NotFound();
         })
         .WithName("GetCourseById")
         .Produces<CourseDto>(StatusCodes.Status200OK)
@@ -33,16 +34,22 @@ public static class CoursesEndpoints
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
-        _ = group.MapPost("/", async (Course course, StudentEnrollmentDbContext db) =>
+        _ = group.MapPost("/", async Task<Created<CourseDto>> (CreateCourseDto createCourseDto, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
         {
+            var course = mapper.Map<Course>(createCourseDto);
+
+            // These should come from Authentication
+            course.CreatedBy = course.ModifiedBy = "Admin";
+            course.CreatedDate = course.ModifiedDate = DateTime.Now;
+
             await db.Courses.AddAsync(course);
 
             await db.SaveChangesAsync();
 
-            return TypedResults.Created($"/api/Course/{course.Id}", course);
+            return TypedResults.Created($"/api/Course/{course.Id}", mapper.Map<CourseDto>(course));
         })
         .WithName("CreateCourse")
-        .Produces<Course>(StatusCodes.Status201Created)
+        .Produces<CourseDto>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
