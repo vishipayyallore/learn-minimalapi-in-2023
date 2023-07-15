@@ -16,7 +16,7 @@ public static class CoursesEndpoints
             return await db.Courses.ToListAsync();
         })
         .WithName("GetAllCourses")
-        .Produces(StatusCodes.Status200OK)
+        .Produces<List<Course>>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
@@ -26,7 +26,7 @@ public static class CoursesEndpoints
                             is Course model ? TypedResults.Ok(model) : TypedResults.NotFound();
         })
         .WithName("GetCourseById")
-        .Produces(StatusCodes.Status200OK)
+        .Produces<Course>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
@@ -40,11 +40,11 @@ public static class CoursesEndpoints
             return TypedResults.Created($"/api/Course/{course.Id}", course);
         })
         .WithName("CreateCourse")
-        .Produces(StatusCodes.Status201Created)
+        .Produces<Course>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
-        _ = group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Course course, StudentEnrollmentDbContext db) =>
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, Course course, StudentEnrollmentDbContext db) =>
         {
             var courseExists = await db.Courses.AnyAsync(r => r.Id == id);
             if (!courseExists)
@@ -56,24 +56,24 @@ public static class CoursesEndpoints
 
             await db.SaveChangesAsync();
 
-            return TypedResults.Ok();
+            return TypedResults.NoContent();
         })
         .WithName("UpdateCourse")
-        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
-        _ = group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, StudentEnrollmentDbContext db) =>
+        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, StudentEnrollmentDbContext db) =>
         {
             var affected = await db.Courses
                 .Where(model => model.Id == id)
                 .ExecuteDeleteAsync();
 
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+            return affected == 1 ? TypedResults.NoContent() : TypedResults.NotFound();
         })
         .WithName("DeleteCourse")
-        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
