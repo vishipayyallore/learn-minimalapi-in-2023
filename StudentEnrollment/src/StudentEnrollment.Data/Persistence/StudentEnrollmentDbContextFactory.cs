@@ -8,10 +8,6 @@ public class StudentEnrollmentDbContextFactory : IDesignTimeDbContextFactory<Stu
 {
     public StudentEnrollmentDbContext CreateDbContext(string[] args)
     {
-        // Get environment
-        //string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-        // Build config
         IConfiguration config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
