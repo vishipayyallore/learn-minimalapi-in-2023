@@ -11,12 +11,12 @@ public static class CoursesEndpoints
     {
         var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
 
-        _ = group.MapGet("/", async ([FromServices] StudentEnrollmentDbContext db) =>
+        _ = group.MapGet("/", async Task<IReadOnlyCollection<Course>> ([FromServices] StudentEnrollmentDbContext db) =>
         {
             return await db.Courses.ToListAsync();
         })
         .WithName("GetAllCourses")
-        .Produces<List<Course>>(StatusCodes.Status200OK)
+        .Produces<IReadOnlyCollection<Course>>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
