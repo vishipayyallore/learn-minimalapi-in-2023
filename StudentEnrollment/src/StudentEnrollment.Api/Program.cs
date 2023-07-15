@@ -42,11 +42,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapStudentEndpoints();
+app.MapStudentsEndpoints();
 
-app.MapCourseEndpoints();
+app.MapCoursesEndpoints();
 
-app.MapEnrollmentEndpoints();
+app.MapEnrollmentsEndpoints();
 
 app.Run();
 
