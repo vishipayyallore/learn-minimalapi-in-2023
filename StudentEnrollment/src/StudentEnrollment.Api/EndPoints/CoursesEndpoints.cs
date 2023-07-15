@@ -53,15 +53,21 @@ public static class CoursesEndpoints
         .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
-        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, Course course, StudentEnrollmentDbContext db) =>
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, CourseDto courseDto, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
         {
-            var courseExists = await db.Courses.AnyAsync(r => r.Id == id);
-            if (!courseExists)
+            var existingCourse = await db.Courses.FindAsync(id);
+            if (existingCourse is null)
             {
                 return TypedResults.NotFound();
             }
 
-            db.Courses.Update(course);
+            mapper.Map(courseDto, existingCourse);
+
+            // These should come from Authentication
+            existingCourse.ModifiedBy = "Admin";
+            existingCourse.ModifiedDate = DateTime.Now;
+
+            db.Courses.Update(existingCourse);
 
             await db.SaveChangesAsync();
 
@@ -75,9 +81,7 @@ public static class CoursesEndpoints
 
         _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, StudentEnrollmentDbContext db) =>
         {
-            var affected = await db.Courses
-                .Where(model => model.Id == id)
-                .ExecuteDeleteAsync();
+            var affected = await db.Courses.Where(model => model.Id == id).ExecuteDeleteAsync();
 
             return affected == 1 ? TypedResults.NoContent() : TypedResults.NotFound();
         })
