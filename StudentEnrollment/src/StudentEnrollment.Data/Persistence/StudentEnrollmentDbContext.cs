@@ -7,6 +7,12 @@ namespace StudentEnrollment.Data.Persistence;
 
 public class StudentEnrollmentDbContext : IdentityDbContext
 {
+    public DbSet<Course> Courses => Set<Course>();
+
+    public DbSet<Student> Students => Set<Student>();
+
+    public DbSet<Enrollment> Enrollments => Set<Enrollment>();
+
     public StudentEnrollmentDbContext(DbContextOptions<StudentEnrollmentDbContext> options) : base(options)
     {
     }
@@ -19,10 +25,4 @@ public class StudentEnrollmentDbContext : IdentityDbContext
 
         _ = builder.ApplyConfiguration(new UserRoleSeedDataConfiguration());
     }
-
-    public DbSet<Course> Courses => Set<Course>();
-
-    public DbSet<Student> Students => Set<Student>();
-
-    public DbSet<Enrollment> Enrollments => Set<Enrollment>();
 }
