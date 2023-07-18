@@ -52,26 +52,30 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Student student, StudentEnrollmentDbContext db) =>
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, StudentDto studentDto, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
         {
-            var affected = await db.Students
-                .Where(model => model.Id == id)
-                .ExecuteUpdateAsync(setters => setters
-                  .SetProperty(m => m.FirstName, student.FirstName)
-                  .SetProperty(m => m.LastName, student.LastName)
-                  .SetProperty(m => m.DateOfBirth, student.DateOfBirth)
-                  .SetProperty(m => m.IdNumber, student.IdNumber)
-                  .SetProperty(m => m.Picture, student.Picture)
-                  .SetProperty(m => m.Id, student.Id)
-                  .SetProperty(m => m.CreatedDate, student.CreatedDate)
-                  .SetProperty(m => m.CreatedBy, student.CreatedBy)
-                  .SetProperty(m => m.ModifiedDate, student.ModifiedDate)
-                  .SetProperty(m => m.ModifiedBy, student.ModifiedBy)
-                );
+            var existingStudent = await db.Students.FindAsync(id);
+            if (existingStudent is null)
+            {
+                return TypedResults.NotFound();
+            }
 
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+            mapper.Map(studentDto, existingStudent);
+
+            // These should come from Authentication
+            existingStudent.ModifiedBy = "Admin";
+            existingStudent.ModifiedDate = DateTime.Now;
+
+            db.Students.Update(existingStudent);
+
+            await db.SaveChangesAsync();
+
+            return TypedResults.NoContent();
         })
         .WithName("UpdateStudent")
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
         _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, StudentEnrollmentDbContext db) =>
