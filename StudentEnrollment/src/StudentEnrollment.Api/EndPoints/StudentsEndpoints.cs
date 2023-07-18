@@ -33,6 +33,25 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
+        _ = group.MapPost("/", async Task<Created<StudentDto>> (CreateStudentDto createStudentDto, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+            {
+                var student = mapper.Map<Student>(createStudentDto);
+
+                // These should come from Authentication
+                student.CreatedBy = student.ModifiedBy = "Admin";
+                student.CreatedDate = student.ModifiedDate = DateTime.Now;
+
+                await db.Students.AddAsync(student);
+
+                await db.SaveChangesAsync();
+
+                return TypedResults.Created($"/api/Student/{student.Id}", mapper.Map<StudentDto>(student));
+            })
+            .WithName("CreateStudent")
+            .Produces<StudentDto>(StatusCodes.Status201Created)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
+
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Student student, StudentEnrollmentDbContext db) =>
         {
             var affected = await db.Students
@@ -55,24 +74,16 @@ public static class StudentsEndpoints
         .WithName("UpdateStudent")
         .WithOpenApi();
 
-        group.MapPost("/", async (Student student, StudentEnrollmentDbContext db) =>
-        {
-            db.Students.Add(student);
-            await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Student/{student.Id}", student);
-        })
-        .WithName("CreateStudent")
-        .WithOpenApi();
+        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, StudentEnrollmentDbContext db) =>
+            {
+                var affected = await db.Students.Where(model => model.Id == id).ExecuteDeleteAsync();
 
-        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, StudentEnrollmentDbContext db) =>
-        {
-            var affected = await db.Students
-                .Where(model => model.Id == id)
-                .ExecuteDeleteAsync();
-
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
-        })
-        .WithName("DeleteStudent")
-        .WithOpenApi();
+                return affected == 1 ? TypedResults.NoContent() : TypedResults.NotFound();
+            })
+            .WithName("DeleteStudent")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
     }
 }
