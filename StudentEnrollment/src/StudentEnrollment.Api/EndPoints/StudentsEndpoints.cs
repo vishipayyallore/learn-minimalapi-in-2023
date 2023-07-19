@@ -22,7 +22,7 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapGet("/{id}", async Task<Results<Ok<StudentDto>, NotFound>> (int id, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapGet("/{id}", async Task<Results<Ok<StudentDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 return await db.Students.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
                                 is Student model ? TypedResults.Ok(mapper.Map<StudentDto>(model)) : TypedResults.NotFound();
@@ -33,46 +33,61 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Student student, StudentEnrollmentDbContext db) =>
-        {
-            var affected = await db.Students
-                .Where(model => model.Id == id)
-                .ExecuteUpdateAsync(setters => setters
-                  .SetProperty(m => m.FirstName, student.FirstName)
-                  .SetProperty(m => m.LastName, student.LastName)
-                  .SetProperty(m => m.DateOfBirth, student.DateOfBirth)
-                  .SetProperty(m => m.IdNumber, student.IdNumber)
-                  .SetProperty(m => m.Picture, student.Picture)
-                  .SetProperty(m => m.Id, student.Id)
-                  .SetProperty(m => m.CreatedDate, student.CreatedDate)
-                  .SetProperty(m => m.CreatedBy, student.CreatedBy)
-                  .SetProperty(m => m.ModifiedDate, student.ModifiedDate)
-                  .SetProperty(m => m.ModifiedBy, student.ModifiedBy)
-                );
+        _ = group.MapPost("/", async Task<Created<StudentDto>> ([FromBody] CreateStudentDto createStudentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+            {
+                var student = mapper.Map<Student>(createStudentDto);
 
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+                // These should come from Authentication
+                student.CreatedBy = student.ModifiedBy = "Admin";
+                student.CreatedDate = student.ModifiedDate = DateTime.Now;
+
+                await db.Students.AddAsync(student);
+
+                await db.SaveChangesAsync();
+
+                return TypedResults.Created($"/api/Student/{student.Id}", mapper.Map<StudentDto>(student));
+            })
+            .WithName("CreateStudent")
+            .Produces<StudentDto>(StatusCodes.Status201Created)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
+
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] StudentDto studentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        {
+            var existingStudent = await db.Students.FindAsync(id);
+            if (existingStudent is null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            mapper.Map(studentDto, existingStudent);
+
+            // These should come from Authentication
+            existingStudent.ModifiedBy = "Admin";
+            existingStudent.ModifiedDate = DateTime.Now;
+
+            db.Students.Update(existingStudent);
+
+            await db.SaveChangesAsync();
+
+            return TypedResults.NoContent();
         })
         .WithName("UpdateStudent")
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
         .WithOpenApi();
 
-        group.MapPost("/", async (Student student, StudentEnrollmentDbContext db) =>
-        {
-            db.Students.Add(student);
-            await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Student/{student.Id}", student);
-        })
-        .WithName("CreateStudent")
-        .WithOpenApi();
+        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
+            {
+                var affected = await db.Students.Where(model => model.Id == id).ExecuteDeleteAsync();
 
-        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, StudentEnrollmentDbContext db) =>
-        {
-            var affected = await db.Students
-                .Where(model => model.Id == id)
-                .ExecuteDeleteAsync();
-
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
-        })
-        .WithName("DeleteStudent")
-        .WithOpenApi();
+                return affected == 1 ? TypedResults.NoContent() : TypedResults.NotFound();
+            })
+            .WithName("DeleteStudent")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
     }
 }

@@ -23,7 +23,7 @@ public static class CoursesEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapGet("/{id}", async Task<Results<Ok<CourseDto>, NotFound>> (int id, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapGet("/{id}", async Task<Results<Ok<CourseDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 return await db.Courses.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
                                 is Course model ? TypedResults.Ok(mapper.Map<CourseDto>(model)) : TypedResults.NotFound();
@@ -34,7 +34,7 @@ public static class CoursesEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapPost("/", async Task<Created<CourseDto>> (CreateCourseDto createCourseDto, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapPost("/", async Task<Created<CourseDto>> ([FromBody] CreateCourseDto createCourseDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 var course = mapper.Map<Course>(createCourseDto);
 
@@ -53,7 +53,7 @@ public static class CoursesEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> (int id, CourseDto courseDto, StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] CourseDto courseDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 var existingCourse = await db.Courses.FindAsync(id);
                 if (existingCourse is null)
@@ -79,7 +79,7 @@ public static class CoursesEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> (int id, StudentEnrollmentDbContext db) =>
+        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
             {
                 var affected = await db.Courses.Where(model => model.Id == id).ExecuteDeleteAsync();
 

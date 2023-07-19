@@ -16,7 +16,7 @@ public class CreateStudentDto
     [Required]
     public string? IdNumber { get; set; }
 
-    [Required]
+    // [Required]
     public byte[]? ProfilePicture { get; set; }
 }
 
