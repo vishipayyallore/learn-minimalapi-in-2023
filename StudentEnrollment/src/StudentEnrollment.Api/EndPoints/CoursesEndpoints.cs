@@ -26,7 +26,7 @@ public static class CoursesEndpoints
         _ = group.MapGet("/{id}", async Task<Results<Ok<CourseDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 return await db.Courses.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
-                                is Course model ? TypedResults.Ok(mapper.Map<CourseDto>(model)) : TypedResults.NotFound();
+                                is Course course ? TypedResults.Ok(mapper.Map<CourseDto>(course)) : TypedResults.NotFound();
             })
             .WithName("GetCourseById")
             .Produces<CourseDto>(StatusCodes.Status200OK)
