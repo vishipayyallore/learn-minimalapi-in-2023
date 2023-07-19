@@ -53,30 +53,30 @@ public static class StudentsEndpoints
             .WithOpenApi();
 
         _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] StudentDto studentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
-        {
-            var existingStudent = await db.Students.FindAsync(id);
-            if (existingStudent is null)
             {
-                return TypedResults.NotFound();
-            }
+                var existingStudent = await db.Students.FindAsync(id);
+                if (existingStudent is null)
+                {
+                    return TypedResults.NotFound();
+                }
 
-            mapper.Map(studentDto, existingStudent);
+                mapper.Map(studentDto, existingStudent);
 
-            // These should come from Authentication
-            existingStudent.ModifiedBy = "Admin";
-            existingStudent.ModifiedDate = DateTime.Now;
+                // These should come from Authentication
+                existingStudent.ModifiedBy = "Admin";
+                existingStudent.ModifiedDate = DateTime.Now;
 
-            db.Students.Update(existingStudent);
+                db.Students.Update(existingStudent);
 
-            await db.SaveChangesAsync();
+                await db.SaveChangesAsync();
 
-            return TypedResults.NoContent();
-        })
-        .WithName("UpdateStudent")
-        .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound)
-        .ProducesProblem(StatusCodes.Status500InternalServerError)
-        .WithOpenApi();
+                return TypedResults.NoContent();
+            })
+            .WithName("UpdateStudent")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
 
         _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
             {
