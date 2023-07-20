@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StudentEnrollment.Data.Dtos.Course;
 using StudentEnrollment.Data.Dtos.Enrollment;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
