@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Dtos.Course;
 using StudentEnrollment.Data.Dtos.Enrollment;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
@@ -54,24 +55,31 @@ public static class EnrollmentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Enrollment enrollment, StudentEnrollmentDbContext db) =>
-        {
-            var affected = await db.Enrollments
-                .Where(model => model.Id == id)
-                .ExecuteUpdateAsync(setters => setters
-                  .SetProperty(m => m.CourseId, enrollment.CourseId)
-                  .SetProperty(m => m.StudentId, enrollment.StudentId)
-                  .SetProperty(m => m.Id, enrollment.Id)
-                  .SetProperty(m => m.CreatedDate, enrollment.CreatedDate)
-                  .SetProperty(m => m.CreatedBy, enrollment.CreatedBy)
-                  .SetProperty(m => m.ModifiedDate, enrollment.ModifiedDate)
-                  .SetProperty(m => m.ModifiedBy, enrollment.ModifiedBy)
-                );
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] EnrollmentDto enrollmentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+            {
+                var existingCourse = await db.Enrollments.FindAsync(id);
+                if (existingCourse is null)
+                {
+                    return TypedResults.NotFound();
+                }
 
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
-        })
-        .WithName("UpdateEnrollment")
-        .WithOpenApi();
+                mapper.Map(enrollmentDto, existingCourse);
+
+                // These should come from Authentication
+                existingCourse.ModifiedBy = "Admin";
+                existingCourse.ModifiedDate = DateTime.Now;
+
+                db.Enrollments.Update(existingCourse);
+
+                await db.SaveChangesAsync();
+
+                return TypedResults.NoContent();
+            })
+            .WithName("UpdateEnrollment")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
 
         _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
             {
