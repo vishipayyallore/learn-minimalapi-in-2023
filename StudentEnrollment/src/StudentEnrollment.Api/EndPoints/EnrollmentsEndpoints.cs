@@ -73,15 +73,16 @@ public static class EnrollmentsEndpoints
         .WithName("UpdateEnrollment")
         .WithOpenApi();
 
-        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, StudentEnrollmentDbContext db) =>
-        {
-            var affected = await db.Enrollments
-                .Where(model => model.Id == id)
-                .ExecuteDeleteAsync();
+        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
+            {
+                var affected = await db.Enrollments.Where(model => model.Id == id).ExecuteDeleteAsync();
 
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
-        })
-        .WithName("DeleteEnrollment")
-        .WithOpenApi();
+                return affected == 1 ? TypedResults.NoContent() : TypedResults.NotFound();
+            })
+            .WithName("DeleteEnrollment")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
     }
 }
