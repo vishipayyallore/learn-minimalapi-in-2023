@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StudentEnrollment.Data.Dtos.Course;
+using StudentEnrollment.Data.Dtos.Enrollment;
 using StudentEnrollment.Data.Dtos.Student;
 using StudentEnrollment.Data.Entities;
 
@@ -15,6 +16,9 @@ public class MapperConfig : Profile
 
         CreateMap<Student, CreateStudentDto>().ReverseMap();
         CreateMap<Student, StudentDto>().ReverseMap();
+
+        CreateMap<Enrollment, CreateEnrollmentDto>().ReverseMap();
+        CreateMap<Enrollment, EnrollmentDto>().ReverseMap();
     }
 
 }
