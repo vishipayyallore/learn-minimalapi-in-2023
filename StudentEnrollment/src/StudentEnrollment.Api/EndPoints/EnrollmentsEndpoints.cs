@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Dtos.Enrollment;
 using StudentEnrollment.Data.Entities;
 using StudentEnrollment.Data.Persistence;
 namespace StudentEnrollment.Api.EndPoints;
@@ -10,12 +13,14 @@ public static class EnrollmentsEndpoints
     {
         var group = routes.MapGroup("/api/Enrollments").WithTags(nameof(Enrollment));
 
-        group.MapGet("/", async (StudentEnrollmentDbContext db) =>
-        {
-            return await db.Enrollments.ToListAsync();
-        })
-        .WithName("GetAllEnrollments")
-        .WithOpenApi();
+        _ = group.MapGet("/", async Task<IReadOnlyCollection<EnrollmentDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+            {
+                return mapper.Map<IReadOnlyCollection<EnrollmentDto>>(await db.Enrollments.ToListAsync());
+            })
+            .WithName("GetAllEnrollments")
+            .Produces<IReadOnlyCollection<EnrollmentDto>>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
 
         group.MapGet("/{id}", async Task<Results<Ok<Enrollment>, NotFound>> (int id, StudentEnrollmentDbContext db) =>
         {
