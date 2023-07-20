@@ -12,7 +12,9 @@ public static class CoursesEndpoints
 {
     public static void MapCoursesEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
+        const string apiRoute = "/api/Courses";
+
+        var group = routes.MapGroup(apiRoute).WithTags(nameof(Course));
 
         _ = group.MapGet("/", async Task<IReadOnlyCollection<CourseDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
@@ -46,7 +48,7 @@ public static class CoursesEndpoints
 
                 await db.SaveChangesAsync();
 
-                return TypedResults.Created($"/api/Courses/{course.Id}", mapper.Map<CourseDto>(course));
+                return TypedResults.Created($"{apiRoute}/{course.Id}", mapper.Map<CourseDto>(course));
             })
             .WithName("CreateCourse")
             .Produces<CourseDto>(StatusCodes.Status201Created)

@@ -11,7 +11,9 @@ public static class EnrollmentsEndpoints
 {
     public static void MapEnrollmentsEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Enrollments").WithTags(nameof(Enrollment));
+        const string apiRoute = "/api/Enrollments";
+
+        var group = routes.MapGroup(apiRoute).WithTags(nameof(Enrollment));
 
         _ = group.MapGet("/", async Task<IReadOnlyCollection<EnrollmentDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
@@ -45,7 +47,7 @@ public static class EnrollmentsEndpoints
 
                 await db.SaveChangesAsync();
 
-                return TypedResults.Created($"/api/Enrollments/{enrollment.Id}", mapper.Map<EnrollmentDto>(enrollment));
+                return TypedResults.Created($"{apiRoute}/{enrollment.Id}", mapper.Map<EnrollmentDto>(enrollment));
             })
             .WithName("CreateEnrollment")
             .Produces<EnrollmentDto>(StatusCodes.Status201Created)

@@ -11,7 +11,9 @@ public static class StudentsEndpoints
 {
     public static void MapStudentsEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Students").WithTags(nameof(Student));
+        const string apiRoute = "/api/Students";
+
+        var group = routes.MapGroup(apiRoute).WithTags(nameof(Student));
 
         _ = group.MapGet("/", async Task<IReadOnlyCollection<StudentDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
@@ -45,7 +47,7 @@ public static class StudentsEndpoints
 
                 await db.SaveChangesAsync();
 
-                return TypedResults.Created($"/api/Students/{student.Id}", mapper.Map<StudentDto>(student));
+                return TypedResults.Created($"{apiRoute}/{student.Id}", mapper.Map<StudentDto>(student));
             })
             .WithName("CreateStudent")
             .Produces<StudentDto>(StatusCodes.Status201Created)
