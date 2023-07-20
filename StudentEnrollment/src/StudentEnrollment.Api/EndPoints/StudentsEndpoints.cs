@@ -45,7 +45,7 @@ public static class StudentsEndpoints
 
                 await db.SaveChangesAsync();
 
-                return TypedResults.Created($"/api/Student/{student.Id}", mapper.Map<StudentDto>(student));
+                return TypedResults.Created($"/api/Students/{student.Id}", mapper.Map<StudentDto>(student));
             })
             .WithName("CreateStudent")
             .Produces<StudentDto>(StatusCodes.Status201Created)

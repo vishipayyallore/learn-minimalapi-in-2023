@@ -33,6 +33,25 @@ public static class EnrollmentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
+        _ = group.MapPost("/", async Task<Created<EnrollmentDto>> ([FromBody] CreateEnrollmentDto createEnrollmentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+            {
+                var enrollment = mapper.Map<Enrollment>(createEnrollmentDto);
+
+                // These should come from Authentication
+                enrollment.CreatedBy = enrollment.ModifiedBy = "Admin";
+                enrollment.CreatedDate = enrollment.ModifiedDate = DateTime.Now;
+
+                await db.Enrollments.AddAsync(enrollment);
+
+                await db.SaveChangesAsync();
+
+                return TypedResults.Created($"/api/Enrollments/{enrollment.Id}", mapper.Map<EnrollmentDto>(enrollment));
+            })
+            .WithName("CreateEnrollment")
+            .Produces<EnrollmentDto>(StatusCodes.Status201Created)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
+
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Enrollment enrollment, StudentEnrollmentDbContext db) =>
         {
             var affected = await db.Enrollments
@@ -50,15 +69,6 @@ public static class EnrollmentsEndpoints
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })
         .WithName("UpdateEnrollment")
-        .WithOpenApi();
-
-        group.MapPost("/", async (Enrollment enrollment, StudentEnrollmentDbContext db) =>
-        {
-            db.Enrollments.Add(enrollment);
-            await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Enrollment/{enrollment.Id}", enrollment);
-        })
-        .WithName("CreateEnrollment")
         .WithOpenApi();
 
         group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, StudentEnrollmentDbContext db) =>
