@@ -22,16 +22,16 @@ public static class EnrollmentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        group.MapGet("/{id}", async Task<Results<Ok<Enrollment>, NotFound>> (int id, StudentEnrollmentDbContext db) =>
-        {
-            return await db.Enrollments.AsNoTracking()
-                .FirstOrDefaultAsync(model => model.Id == id)
-                is Enrollment model
-                    ? TypedResults.Ok(model)
-                    : TypedResults.NotFound();
-        })
-        .WithName("GetEnrollmentById")
-        .WithOpenApi();
+        _ = group.MapGet("/{id}", async Task<Results<Ok<EnrollmentDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+            {
+                return await db.Enrollments.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
+                                is Enrollment enrollment ? TypedResults.Ok(mapper.Map<EnrollmentDto>(enrollment)) : TypedResults.NotFound();
+            })
+            .WithName("GetEnrollmentById")
+            .Produces<EnrollmentDto>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
 
         group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int id, Enrollment enrollment, StudentEnrollmentDbContext db) =>
         {
