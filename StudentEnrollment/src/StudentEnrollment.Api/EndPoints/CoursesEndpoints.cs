@@ -12,7 +12,9 @@ public static class CoursesEndpoints
 {
     public static void MapCoursesEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Courses").WithTags(nameof(Course));
+        const string apiRoute = "/api/Courses";
+
+        var group = routes.MapGroup(apiRoute).WithTags(nameof(Course));
 
         _ = group.MapGet("/", async Task<IReadOnlyCollection<CourseDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
@@ -26,7 +28,7 @@ public static class CoursesEndpoints
         _ = group.MapGet("/{id}", async Task<Results<Ok<CourseDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 return await db.Courses.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
-                                is Course model ? TypedResults.Ok(mapper.Map<CourseDto>(model)) : TypedResults.NotFound();
+                                is Course course ? TypedResults.Ok(mapper.Map<CourseDto>(course)) : TypedResults.NotFound();
             })
             .WithName("GetCourseById")
             .Produces<CourseDto>(StatusCodes.Status200OK)
@@ -46,7 +48,7 @@ public static class CoursesEndpoints
 
                 await db.SaveChangesAsync();
 
-                return TypedResults.Created($"/api/Course/{course.Id}", mapper.Map<CourseDto>(course));
+                return TypedResults.Created($"{apiRoute}/{course.Id}", mapper.Map<CourseDto>(course));
             })
             .WithName("CreateCourse")
             .Produces<CourseDto>(StatusCodes.Status201Created)

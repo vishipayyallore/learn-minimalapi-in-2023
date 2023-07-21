@@ -11,7 +11,9 @@ public static class StudentsEndpoints
 {
     public static void MapStudentsEndpoints(this IEndpointRouteBuilder routes)
     {
-        var group = routes.MapGroup("/api/Students").WithTags(nameof(Student));
+        const string apiRoute = "/api/Students";
+
+        var group = routes.MapGroup(apiRoute).WithTags(nameof(Student));
 
         _ = group.MapGet("/", async Task<IReadOnlyCollection<StudentDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
@@ -25,7 +27,7 @@ public static class StudentsEndpoints
         _ = group.MapGet("/{id}", async Task<Results<Ok<StudentDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
             {
                 return await db.Students.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
-                                is Student model ? TypedResults.Ok(mapper.Map<StudentDto>(model)) : TypedResults.NotFound();
+                                is Student student ? TypedResults.Ok(mapper.Map<StudentDto>(student)) : TypedResults.NotFound();
             })
             .WithName("GetStudentById")
             .Produces<StudentDto>(StatusCodes.Status200OK)
@@ -45,7 +47,7 @@ public static class StudentsEndpoints
 
                 await db.SaveChangesAsync();
 
-                return TypedResults.Created($"/api/Student/{student.Id}", mapper.Map<StudentDto>(student));
+                return TypedResults.Created($"{apiRoute}/{student.Id}", mapper.Map<StudentDto>(student));
             })
             .WithName("CreateStudent")
             .Produces<StudentDto>(StatusCodes.Status201Created)
@@ -53,30 +55,30 @@ public static class StudentsEndpoints
             .WithOpenApi();
 
         _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] StudentDto studentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
-        {
-            var existingStudent = await db.Students.FindAsync(id);
-            if (existingStudent is null)
             {
-                return TypedResults.NotFound();
-            }
+                var existingStudent = await db.Students.FindAsync(id);
+                if (existingStudent is null)
+                {
+                    return TypedResults.NotFound();
+                }
 
-            mapper.Map(studentDto, existingStudent);
+                mapper.Map(studentDto, existingStudent);
 
-            // These should come from Authentication
-            existingStudent.ModifiedBy = "Admin";
-            existingStudent.ModifiedDate = DateTime.Now;
+                // These should come from Authentication
+                existingStudent.ModifiedBy = "Admin";
+                existingStudent.ModifiedDate = DateTime.Now;
 
-            db.Students.Update(existingStudent);
+                db.Students.Update(existingStudent);
 
-            await db.SaveChangesAsync();
+                await db.SaveChangesAsync();
 
-            return TypedResults.NoContent();
-        })
-        .WithName("UpdateStudent")
-        .Produces(StatusCodes.Status204NoContent)
-        .Produces(StatusCodes.Status404NotFound)
-        .ProducesProblem(StatusCodes.Status500InternalServerError)
-        .WithOpenApi();
+                return TypedResults.NoContent();
+            })
+            .WithName("UpdateStudent")
+            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
 
         _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
             {
