@@ -4,7 +4,7 @@ namespace StudentEnrollment.Data.Contracts;
 
 public interface IGenericRepository<TEntity> where TEntity : BaseEntity
 {
-    Task<TEntity> GetAsync(int? id);
+    Task<TEntity?> GetAsync(int? id);
 
     Task<List<TEntity>> GetAllAsync();
 
