@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentEnrollment.Api.Configurations;
 using StudentEnrollment.Api.EndPoints;
+using StudentEnrollment.Data.Contracts;
 using StudentEnrollment.Data.Persistence;
+using StudentEnrollment.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +15,15 @@ builder.Services.AddDbContext<StudentEnrollmentDbContext>(options =>
     _ = options.UseSqlServer(connectionString);
 });
 
-builder.Services.AddAutoMapper(typeof(MapperConfig));
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 const string corsPolicyName = "AllowAll";
 builder.Services.AddCors(options =>
