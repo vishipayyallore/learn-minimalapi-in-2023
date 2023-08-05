@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Countries.ApplicationCore",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Data", "src\Countries.Data\Countries.Data.csproj", "{58D3CA8A-DFF9-42E9-A806-C32F2E8B3152}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Countries.Persistence", "src\Countries.Persistence\Countries.Persistence.csproj", "{F3191D5C-EEA6-417A-9AF8-032D4716BA65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{58D3CA8A-DFF9-42E9-A806-C32F2E8B3152}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58D3CA8A-DFF9-42E9-A806-C32F2E8B3152}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58D3CA8A-DFF9-42E9-A806-C32F2E8B3152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3191D5C-EEA6-417A-9AF8-032D4716BA65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3191D5C-EEA6-417A-9AF8-032D4716BA65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3191D5C-EEA6-417A-9AF8-032D4716BA65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3191D5C-EEA6-417A-9AF8-032D4716BA65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{BAD731EE-01CC-4437-A252-46E07BCFFDD0} = {34E685A9-394C-43F0-BC31-6116B85D9E6D}
 		{CFE2F621-A9ED-448F-A2DF-43819F85306F} = {34E685A9-394C-43F0-BC31-6116B85D9E6D}
 		{58D3CA8A-DFF9-42E9-A806-C32F2E8B3152} = {34E685A9-394C-43F0-BC31-6116B85D9E6D}
+		{F3191D5C-EEA6-417A-9AF8-032D4716BA65} = {34E685A9-394C-43F0-BC31-6116B85D9E6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {408F98D5-3493-42C1-866E-D1B6D5E1BC0C}
