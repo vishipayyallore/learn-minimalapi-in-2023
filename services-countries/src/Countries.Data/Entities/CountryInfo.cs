@@ -1,7 +1,10 @@
-﻿namespace Countries.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Countries.Data.Entities;
 
 public class CountryInfo
 {
+    [Key]
     public int CountryId { get; set; }
 
     public string? CountryName { get; set; }
@@ -10,5 +13,5 @@ public class CountryInfo
 
     public string? NationalBird { get; set; }
 
-    public int CountryPopulation { get; set; }
+    public long CountryPopulation { get; set; }
 }

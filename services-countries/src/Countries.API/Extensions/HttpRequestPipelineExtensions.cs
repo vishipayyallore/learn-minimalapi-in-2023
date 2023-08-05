@@ -17,6 +17,8 @@ public static class HttpRequestPipelineExtensions
 
         app.MapWelcomeEndpoints();
 
+        app.MapCountriesEndpoints();
+
         return app;
     }
 }
