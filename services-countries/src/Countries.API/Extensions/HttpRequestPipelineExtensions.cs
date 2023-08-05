@@ -1,4 +1,6 @@
-﻿namespace Countries.API.Extensions;
+﻿using Countries.API.Endpoints;
+
+namespace Countries.API.Extensions;
 
 public static class HttpRequestPipelineExtensions
 {
@@ -12,6 +14,8 @@ public static class HttpRequestPipelineExtensions
         }
 
         app.UseHttpsRedirection();
+
+        app.MapWelcomeEndpoints();
 
         return app;
     }
