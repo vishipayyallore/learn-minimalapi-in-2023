@@ -7,7 +7,7 @@ namespace StudentEnrollment.Data.Repositories;
 
 public class StudentRepository : GenericRepository<Student>, IStudentRepository
 {
-    public StudentRepository(StudentEnrollmentDbContext db) : base(db)
+    public StudentRepository(StudentEnrollmentDbContext studentEnrollmentDbContext) : base(studentEnrollmentDbContext)
     {
     }
 
