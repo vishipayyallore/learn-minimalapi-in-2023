@@ -7,17 +7,17 @@ namespace StudentEnrollment.Data.Repositories;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 {
-    protected readonly StudentEnrollmentDbContext _db;
+    protected readonly StudentEnrollmentDbContext _studentEnrollmentDbContext;
 
-    public GenericRepository(StudentEnrollmentDbContext db)
+    public GenericRepository(StudentEnrollmentDbContext studentEnrollmentDbContext)
     {
-        this._db = db;
+        _studentEnrollmentDbContext = studentEnrollmentDbContext;
     }
 
     public async Task<TEntity> AddAsync(TEntity entity)
     {
-        await _db.AddAsync(entity);
-        await _db.SaveChangesAsync();
+        await _studentEnrollmentDbContext.AddAsync(entity);
+        await _studentEnrollmentDbContext.SaveChangesAsync();
 
         return entity;
     }
@@ -29,30 +29,30 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         {
             return false;
         }
-        _db.Set<TEntity>().Remove(entity);
+        _studentEnrollmentDbContext.Set<TEntity>().Remove(entity);
 
-        return await _db.SaveChangesAsync() > 0;
+        return await _studentEnrollmentDbContext.SaveChangesAsync() > 0;
     }
 
     public async Task<bool> Exists(int id)
     {
-        return await _db.Set<TEntity>().AnyAsync(q => q.Id == id);
+        return await _studentEnrollmentDbContext.Set<TEntity>().AnyAsync(q => q.Id == id);
     }
 
     public async Task<List<TEntity>> GetAllAsync()
     {
-        return await _db.Set<TEntity>().ToListAsync();
+        return await _studentEnrollmentDbContext.Set<TEntity>().ToListAsync();
     }
 
     public async Task<TEntity?> GetAsync(int? id)
     {
-        return await _db.Set<TEntity>().FindAsync(id);
+        return await _studentEnrollmentDbContext.Set<TEntity>().FindAsync(id);
     }
 
     public async Task UpdateAsync(TEntity entity)
     {
-        _db.Update(entity);
+        _studentEnrollmentDbContext.Update(entity);
 
-        await _db.SaveChangesAsync();
+        await _studentEnrollmentDbContext.SaveChangesAsync();
     }
 }
