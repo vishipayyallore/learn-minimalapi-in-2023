@@ -13,7 +13,7 @@ public class CourseRepository : GenericRepository<Course>, ICourseRepository
 
     public async Task<Course?> GetStudentList(int courseId)
     {
-        var course = await _db.Courses
+        var course = await _studentEnrollmentDbContext.Courses
             .Include(q => q.Enrollments).ThenInclude(q => q.Student)
             .FirstOrDefaultAsync(q => q.Id == courseId);
 

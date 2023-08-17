@@ -7,13 +7,13 @@ namespace StudentEnrollment.Data.Repositories;
 
 public class StudentRepository : GenericRepository<Student>, IStudentRepository
 {
-    public StudentRepository(StudentEnrollmentDbContext db) : base(db)
+    public StudentRepository(StudentEnrollmentDbContext studentEnrollmentDbContext) : base(studentEnrollmentDbContext)
     {
     }
 
     public async Task<Student?> GetStudentDetails(int studentId)
     {
-        var student = await _db.Students
+        var student = await _studentEnrollmentDbContext.Students
             .Include(q => q.Enrollments)
             .ThenInclude(q => q.Course)
             .FirstOrDefaultAsync(q => q.Id == studentId);

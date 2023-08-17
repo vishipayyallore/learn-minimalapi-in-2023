@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using StudentEnrollment.Data.Contracts;
 using StudentEnrollment.Data.Dtos.Student;
 using StudentEnrollment.Data.Entities;
-using StudentEnrollment.Data.Persistence;
 namespace StudentEnrollment.Api.EndPoints;
 
 public static class StudentsEndpoints
@@ -15,19 +14,20 @@ public static class StudentsEndpoints
 
         var group = routes.MapGroup(apiRoute).WithTags(nameof(Student));
 
-        _ = group.MapGet("/", async Task<IReadOnlyCollection<StudentDto>> ([FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapGet("/", async Task<IReadOnlyCollection<StudentDto>> ([FromServices] IStudentRepository studentRepository, [FromServices] IMapper mapper) =>
             {
-                return mapper.Map<IReadOnlyCollection<StudentDto>>(await db.Students.ToListAsync());
+                return mapper.Map<IReadOnlyCollection<StudentDto>>(await studentRepository.GetAllAsync());
             })
             .WithName("GetAllStudents")
             .Produces<IReadOnlyCollection<StudentDto>>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapGet("/{id}", async Task<Results<Ok<StudentDto>, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapGet("/{id}", async Task<Results<Ok<StudentDto>, NotFound>> ([FromRoute] int id, [FromServices] IStudentRepository studentRepository, [FromServices] IMapper mapper) =>
             {
-                return await db.Students.AsNoTracking().FirstOrDefaultAsync(model => model.Id == id)
-                                is Student student ? TypedResults.Ok(mapper.Map<StudentDto>(student)) : TypedResults.NotFound();
+                return await studentRepository.GetAsync(id) is Student student
+                        ? TypedResults.Ok(mapper.Map<StudentDto>(student))
+                        : TypedResults.NotFound();
             })
             .WithName("GetStudentById")
             .Produces<StudentDto>(StatusCodes.Status200OK)
@@ -35,7 +35,7 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapPost("/", async Task<Created<StudentDto>> ([FromBody] CreateStudentDto createStudentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapPost("/", async Task<Created<StudentDto>> ([FromBody] CreateStudentDto createStudentDto, [FromServices] IStudentRepository studentRepository, [FromServices] IMapper mapper) =>
             {
                 var student = mapper.Map<Student>(createStudentDto);
 
@@ -43,9 +43,7 @@ public static class StudentsEndpoints
                 student.CreatedBy = student.ModifiedBy = "Admin";
                 student.CreatedDate = student.ModifiedDate = DateTime.Now;
 
-                await db.Students.AddAsync(student);
-
-                await db.SaveChangesAsync();
+                await studentRepository.AddAsync(student);
 
                 return TypedResults.Created($"{apiRoute}/{student.Id}", mapper.Map<StudentDto>(student));
             })
@@ -54,9 +52,9 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] StudentDto studentDto, [FromServices] StudentEnrollmentDbContext db, [FromServices] IMapper mapper) =>
+        _ = group.MapPut("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromBody] StudentDto studentDto, [FromServices] IStudentRepository studentRepository, [FromServices] IMapper mapper) =>
             {
-                var existingStudent = await db.Students.FindAsync(id);
+                var existingStudent = await studentRepository.GetAsync(id);
                 if (existingStudent is null)
                 {
                     return TypedResults.NotFound();
@@ -68,9 +66,7 @@ public static class StudentsEndpoints
                 existingStudent.ModifiedBy = "Admin";
                 existingStudent.ModifiedDate = DateTime.Now;
 
-                db.Students.Update(existingStudent);
-
-                await db.SaveChangesAsync();
+                await studentRepository.UpdateAsync(existingStudent);
 
                 return TypedResults.NoContent();
             })
@@ -80,11 +76,9 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
-        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] StudentEnrollmentDbContext db) =>
+        _ = group.MapDelete("/{id}", async Task<Results<NoContent, NotFound>> ([FromRoute] int id, [FromServices] IStudentRepository studentRepository) =>
             {
-                var affected = await db.Students.Where(model => model.Id == id).ExecuteDeleteAsync();
-
-                return affected == 1 ? TypedResults.NoContent() : TypedResults.NotFound();
+                return await studentRepository.DeleteAsync(id) ? TypedResults.NoContent() : TypedResults.NotFound();
             })
             .WithName("DeleteStudent")
             .Produces(StatusCodes.Status204NoContent)
