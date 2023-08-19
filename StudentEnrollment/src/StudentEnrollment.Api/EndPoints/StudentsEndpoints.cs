@@ -35,6 +35,18 @@ public static class StudentsEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
+        _ = group.MapGet("/GetDetails/{id}", async Task<Results<Ok<StudentDetailsDto>, NotFound>> ([FromRoute] int id, [FromServices] IStudentRepository studentRepository, [FromServices] IMapper mapper) =>
+            {
+                return await studentRepository.GetStudentDetails(id) is Student student
+                        ? TypedResults.Ok(mapper.Map<StudentDetailsDto>(student))
+                        : TypedResults.NotFound();
+            })
+            .WithName("GetStudentDetailsById")
+            .Produces<StudentDto>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
+
         _ = group.MapPost("/", async Task<Created<StudentDto>> ([FromBody] CreateStudentDto createStudentDto, [FromServices] IStudentRepository studentRepository, [FromServices] IMapper mapper) =>
             {
                 var student = mapper.Map<Student>(createStudentDto);

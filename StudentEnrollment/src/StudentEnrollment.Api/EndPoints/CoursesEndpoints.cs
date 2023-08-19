@@ -36,6 +36,18 @@ public static class CoursesEndpoints
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithOpenApi();
 
+        _ = group.MapGet("/GetStudents/{id}", async ([FromRoute] int id, [FromServices] ICourseRepository courseRepository, [FromServices] IMapper mapper) =>
+            {
+                return await courseRepository.GetStudentList(id) is Course model
+                        ? Results.Ok(mapper.Map<CourseDetailsDto>(model))
+                        : Results.NotFound();
+            })
+            .WithName("GetCourseDetailsById")
+            .Produces<CourseDetailsDto>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .WithOpenApi();
+
         _ = group.MapPost("/", async Task<Created<CourseDto>> ([FromBody] CreateCourseDto createCourseDto, [FromServices] ICourseRepository courseRepository, [FromServices] IMapper mapper) =>
             {
                 var course = mapper.Map<Course>(createCourseDto);
