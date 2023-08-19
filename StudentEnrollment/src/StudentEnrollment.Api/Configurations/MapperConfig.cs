@@ -13,6 +13,8 @@ public class MapperConfig : Profile
     {
         CreateMap<Course, CourseDto>().ReverseMap();
         CreateMap<Course, CreateCourseDto>().ReverseMap();
+        CreateMap<Course, CourseDetailsDto>()
+               .ForMember(q => q.Students, x => x.MapFrom(course => course.Enrollments.Select(stu => stu.Student)));
 
         CreateMap<Student, CreateStudentDto>().ReverseMap();
         CreateMap<Student, StudentDto>().ReverseMap();
