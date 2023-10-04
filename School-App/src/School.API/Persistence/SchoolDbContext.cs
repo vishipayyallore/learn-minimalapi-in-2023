@@ -4,12 +4,8 @@ using School.API.Persistence.SeedData;
 
 namespace School.API.Persistence;
 
-public class SchoolDbContext : DbContext
+public class SchoolDbContext(DbContextOptions<SchoolDbContext> options) : DbContext(options)
 {
-    public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options)
-    {
-    }
-
     public DbSet<Course> Courses => Set<Course>();
 
     protected override void OnModelCreating(ModelBuilder builder)
