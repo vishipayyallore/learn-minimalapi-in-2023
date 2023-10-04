@@ -1,2 +1,21 @@
-@School.API_HostAddress = https://localhost:7280
+@hostname=https://localhost
+@port=7280
+@host={{hostname}}:{{port}}
 
+### Get the Root
+
+GET {{host}}
+
+###
+
+### Get User
+
+GET {{host}}/api/users/A101?name=Sri%20Varu
+
+###
+
+### Get Courses
+
+GET {{host}}/api/courses
+
+###
