@@ -1,19 +1,12 @@
 ﻿using School.API.ApplicationCore.Interfaces;
-using School.API.Data.Dtos;
+using School.API.Data.DTOs;
 
 namespace School.API.Business;
 
-public class CoursesBusiness : ICoursesBusiness
+public class CoursesBusiness(ICoursesRepository coursesRepository, ILogger<CoursesBusiness> logger) : ICoursesBusiness
 {
-    private readonly ICoursesRepository _coursesRepository;
-    private readonly ILogger<CoursesBusiness> _logger;
-
-    public CoursesBusiness(ICoursesRepository coursesRepository, ILogger<CoursesBusiness> logger)
-    {
-        _coursesRepository = coursesRepository ?? throw new ArgumentNullException(nameof(coursesRepository));
-
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
+    private readonly ICoursesRepository _coursesRepository = coursesRepository ?? throw new ArgumentNullException(nameof(coursesRepository));
+    private readonly ILogger<CoursesBusiness> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
     public async Task<ApiResponseDto<IReadOnlyCollection<CourseDto>>> GetAllCourses()
     {

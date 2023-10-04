@@ -1,3 +1,3 @@
-﻿namespace School.API.Data.Dtos;
+﻿namespace School.API.Data.DTOs;
 
 public record CourseDto(Guid Id) : CreateCourseDto;

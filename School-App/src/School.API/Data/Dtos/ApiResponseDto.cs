@@ -1,4 +1,4 @@
-﻿namespace School.API.Data.Dtos;
+﻿namespace School.API.Data.DTOs;
 
 public record ApiResponseDto<T>
 {
@@ -10,13 +10,10 @@ public record ApiResponseDto<T>
 
     public T? Data { get; set; }
 
-    public static ApiResponseDto<T> Create(T? data = default, string message = "Success", bool success = true)
+    public static ApiResponseDto<T> Create(T? data = default, string message = "Success", bool success = true) => new()
     {
-        return new()
-        {
-            Success = success,
-            Message = message,
-            Data = data
-        };
-    }
+        Success = success,
+        Message = message,
+        Data = data
+    };
 }

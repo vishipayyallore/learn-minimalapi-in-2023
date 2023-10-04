@@ -1,4 +1,4 @@
-﻿using School.API.Data.Dtos;
+﻿using School.API.Data.DTOs;
 
 namespace School.API.ApplicationCore.Interfaces;
 

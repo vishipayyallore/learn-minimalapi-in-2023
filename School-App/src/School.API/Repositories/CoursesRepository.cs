@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using School.API.ApplicationCore.Interfaces;
-using School.API.Data.Dtos;
+using School.API.Data.DTOs;
 using School.API.Persistence;
 
 namespace School.API.Repositories;

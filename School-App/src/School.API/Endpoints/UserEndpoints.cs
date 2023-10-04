@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using School.API.Data.Dtos;
+using School.API.Data.DTOs;
 
 namespace School.API.Endpoints;
 
