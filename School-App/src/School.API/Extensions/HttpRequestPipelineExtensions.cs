@@ -1,7 +1,7 @@
-﻿using School.Api.Endpoints;
-using School.Api.Persistence;
+﻿using School.API.Endpoints;
+using School.API.Persistence;
 
-namespace School.Api.Extensions;
+namespace School.API.Extensions;
 
 public static class HttpRequestPipelineExtensions
 {

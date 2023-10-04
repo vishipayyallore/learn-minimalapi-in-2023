@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Api.ApplicationCore.Interfaces;
-using School.Api.Business;
-using School.Api.Configurations;
-using School.Api.Persistence;
-using School.Api.Repositories;
+using School.API.ApplicationCore.Interfaces;
+using School.API.Business;
+using School.API.Configurations;
+using School.API.Persistence;
+using School.API.Repositories;
 
-namespace School.Api.Extensions;
+namespace School.API.Extensions;
 
 public static class DependedServicesExtensions
 {

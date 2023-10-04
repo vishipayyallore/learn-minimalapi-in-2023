@@ -1,7 +1,7 @@
-﻿using School.Api.Business;
-using School.Api.Data.Dtos;
+﻿using School.API.Business;
+using School.API.Data.Dtos;
 
-namespace School.Api.Endpoints;
+namespace School.API.Endpoints;
 
 public static class HelloWorldEndpoints
 {

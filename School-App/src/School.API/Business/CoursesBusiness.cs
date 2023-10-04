@@ -1,7 +1,7 @@
-﻿using School.Api.ApplicationCore.Interfaces;
-using School.Api.Data.Dtos;
+﻿using School.API.ApplicationCore.Interfaces;
+using School.API.Data.Dtos;
 
-namespace School.Api.Business;
+namespace School.API.Business;
 
 public class CoursesBusiness : ICoursesBusiness
 {

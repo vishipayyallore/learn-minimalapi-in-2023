@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using School.Api.Data.Dtos;
-using School.Api.Data.Entities;
+using School.API.Data.Dtos;
+using School.API.Data.Entities;
 
-namespace School.Api.Configurations;
+namespace School.API.Configurations;
 
 public class AutoMapperConfig : Profile
 {

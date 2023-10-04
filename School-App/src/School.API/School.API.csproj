@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="School.Api.ApplicationCore.Common.Constants" Static="true" />
+    <Using Include="School.API.ApplicationCore.Common.Constants" Static="true" />
   </ItemGroup>
 
 </Project>

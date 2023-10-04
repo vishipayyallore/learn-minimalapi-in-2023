@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using School.Api.ApplicationCore.Interfaces;
-using School.Api.Data.Dtos;
-using School.Api.Data.Entities;
+using School.API.ApplicationCore.Interfaces;
+using School.API.Data.Dtos;
+using School.API.Data.Entities;
 
-namespace School.Api.Endpoints;
+namespace School.API.Endpoints;
 
 public static class CourseEndpoints
 {

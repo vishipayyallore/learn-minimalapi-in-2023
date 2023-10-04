@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using School.Api.ApplicationCore.Interfaces;
-using School.Api.Data.Dtos;
-using School.Api.Persistence;
+using School.API.ApplicationCore.Interfaces;
+using School.API.Data.Dtos;
+using School.API.Persistence;
 
-namespace School.Api.Repositories;
+namespace School.API.Repositories;
 
 public class CoursesRepository : ICoursesRepository
 {

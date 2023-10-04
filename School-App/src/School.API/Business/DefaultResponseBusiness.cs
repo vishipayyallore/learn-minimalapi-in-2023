@@ -1,6 +1,6 @@
-﻿using School.Api.Data.Dtos;
+﻿using School.API.Data.Dtos;
 
-namespace School.Api.Business;
+namespace School.API.Business;
 
 public static class DefaultResponseBusiness
 {

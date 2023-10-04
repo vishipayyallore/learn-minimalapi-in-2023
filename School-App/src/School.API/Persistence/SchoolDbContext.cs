@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using School.Api.Data.Entities;
-using School.Api.Persistence.SeedData;
+using School.API.Data.Entities;
+using School.API.Persistence.SeedData;
 
-namespace School.Api.Persistence;
+namespace School.API.Persistence;
 
 public class SchoolDbContext : DbContext
 {

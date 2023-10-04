@@ -1,4 +1,4 @@
-﻿namespace School.Api.ApplicationCore.Common;
+﻿namespace School.API.ApplicationCore.Common;
 
 public static class Constants
 {

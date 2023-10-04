@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using School.Api.Data.Dtos;
+using School.API.Data.Dtos;
 
-namespace School.Api.Endpoints;
+namespace School.API.Endpoints;
 
 public static class UserEndpoints
 {
