@@ -2,20 +2,20 @@
 @port=7280
 @host={{hostname}}:{{port}}
 
-### Get the Root
+### Get the Root ###
 
 GET {{host}}
 
-###
+### Get the Root ###
 
-### Get User
+### Get User ###
 
 GET {{host}}/api/users/A101?name=Sri%20Varu
 
-###
+### Get User ###
 
-### Get Courses
+### Get Courses ###
 
 GET {{host}}/api/courses
 
-###
+### Get Courses ###
